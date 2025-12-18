@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ROBA®-Gateway</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="rdc.js"></script>
+
+    <script>
+
+        let hostname = "rdc-2426d00356";
+        let loggerType = "RawDataLogger";
+        let transmitRate = 50;
+        let lines = [];
+        let torqueScaler = 450 / 60000;
+        var webSocket = undefined;
+        var frame50GraphPayload =
+        {
+            PayloadArray: {}
+        }
+
+        initialize = () => {
+            document.getElementById("hostname").value = hostname;
+            document.getElementById("loggerType").value = loggerType;
+            document.getElementById("transmitRate").value = transmitRate;
+        }
+
+        connect = () => {
+            if (webSocket != undefined) {
+                webSocket.close();
+                webSocket = undefined;
+                document.getElementById("connectButton").innerHTML = "Connect";
+                return;
+            }
+
+            let host = document.getElementById("hostname").value;
+            loggerType = document.getElementById("loggerType").value;
+
+            webSocket = new WebSocket('ws://' + host + ':81/' + loggerType);
+            webSocket.binaryType = "arraybuffer";
+            webSocket.addEventListener('open', (e) => _onOpen(e));
+            webSocket.addEventListener('close', (e) => _onClose(e));
+            webSocket.addEventListener('error', (e) => _onError(e));
+            webSocket.addEventListener('message', (e) => _onMessage(e));
+
+            document.getElementById("connectButton").innerHTML = "Disconnect";
+        }
+
+        _onOpen = (event) => {
+            let data = event.data;
+            console.log(data);
+
+            let date1 = new Date();
+            // time zone offset is in minutes but we need them in milliseconds
+            data = '{TimeUTC:"' + (Date.now() + (date1.getTimezoneOffset() * 1000 * 60)) + '"}';
+            this.webSocket.send(data);
+
+            let transmitRate = document.getElementById("transmitRate").value;
+            data = '{TransmitRate:"' + transmitRate + '"}';
+            this.webSocket.send(data);
+        }
+        _onClose = (event) => {
+            let data = event.data;
+            console.log(data);
+        }
+        _onError = (event) => {
+            let data = event.data;
+            console.error('Connection error: ' + data);
+        }
+        _onMessage = (event) => {
+            let data = "";
+
+            if (event.data instanceof (ArrayBuffer)) {
+                // get data from stream
+                if (loggerType != "RawDataLogger") {
+                    data = new TextDecoder().decode(event.data);
+                    // add it to our array
+                    lines.push(data);
+                }
+                else {
+                    if (convertPayloadMessage(event.data, frame50GraphPayload)) {
+                        let currentPacketTime = frame50GraphPayload.time;
+
+                        let rawData = currentPacketTime + ";" + frame50GraphPayload.torque + ";" + ((frame50GraphPayload.torque * torqueScaler).toFixed(2)) + ";" + frame50GraphPayload.temp + ";" + frame50GraphPayload.speed + ";" + frame50GraphPayload.averageSampleRate;
+                        let payloadSize = frame50GraphPayload.payloadLength;
+                        for (let i = 0; i < payloadSize; i++) {
+                            rawData += ";" + frame50GraphPayload.PayloadArray[i]
+                        }
+
+                        lines.push(rawData);
+                    }
+                }
+            }
+            else {
+                data = event.data
+                // add it to our array
+                lines.push(data);
+            }
+
+            // limit lines to 5 to reduce browser load
+            let start = lines.length - 5;
+            if (start < 0)
+                start = 0;
+
+            // build our final output
+            let content = "";
+            for (var i = start; i < lines.length; i++)
+                content += '<p>' + lines[i] + "</p>";
+
+            document.getElementById("message").innerHTML = content;
+        }
+        _onSave = () => {
+            let filename = "";
+
+            if (lines.length == 0) {
+                //alert("There is no data to save.");
+                return;
+            }
+
+            if (this.logFileName == null) {
+                filename = "rdc_log_" + loggerType + ".txt";
+            }
+            else {
+                filename = this.logFileName;
+            }
+
+            let data = "";
+            let i;
+            for (i = 0; i < lines.length; i++)
+                data += lines[i] + "\n";
+
+            let file = new Blob([data], { type: "text/plain" });
+            if (window.navigator.msSaveOrOpenBlob) // IE10+
+                window.navigator.msSaveOrOpenBlob(file, filename);
+            else { // Others
+                let a = document.createElement("a"),
+                    url = URL.createObjectURL(file);
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function () {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                }, 0);
+            }
+        }
+    </script>
+
+</head>
+
+<body onload="initialize()">
+    <div style="display: grid; grid-template-columns: 200px 300px;">
+        <label for="hostname">Hostname: </label>
+        <input id="hostname" type="text" value="">
+
+        <label for="loggerType">Logger type: </label>
+        <input id="loggerType" type="text" value="">
+
+        <label for="transmitRate">Transmit rate: </label>
+        <input id="transmitRate" type="text" value="">
+
+        <button id="connectButton" onclick="connect()">Connect</button>
+        <button id="saveButton" onclick="_onSave()">Save</button>
+    </div>
+
+    <div id="message">
+        <p>No data yet :(</p>
+    </div>
+</body>
+
+</html>
