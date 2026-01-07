@@ -1,5 +1,5 @@
 # ROBA®-Gateway communication examples
-
+![Produkt](roba-gateway.png)
 ## Table of contents
 
 1. [Introduction](#introduction)
