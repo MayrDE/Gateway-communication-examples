@@ -1,0 +1,60 @@
+meta {
+  name: getGatewayPing
+  type: http
+  seq: 20
+}
+
+get {
+  url: {{baseUrl}}/Gateway/Ping
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getGatewayPing
+
+  Send ping to gateway.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (Pong)
+
+  ### Example
+
+  ```
+  Pong
+  ```
+}
+
+example {
+  name: 200 Response
+  description: Pong
+  
+  request: {
+    url: {{baseUrl}}/Gateway/Ping
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

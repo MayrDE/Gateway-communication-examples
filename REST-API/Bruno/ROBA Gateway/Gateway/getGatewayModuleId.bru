@@ -1,0 +1,70 @@
+meta {
+  name: getGatewayModuleId
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/Gateway/ModuleId
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getGatewayModuleId
+
+  Get Gateway Hardware ID (MAC address).
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK`
+
+  - `ModuleId`: string
+
+  ### Example
+
+  ```json
+  {
+	"ModuleId": "AA:BB:CC:DD:EE:FF"
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/Gateway/ModuleId
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "ModuleId": ""
+        }
+      '''
+    }
+  }
+}

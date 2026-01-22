@@ -1,0 +1,70 @@
+meta {
+  name: getGatewayId
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/Gateway/Id
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getGatewayId
+
+  Get Gateway item- and serial numbers.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (Id)
+
+  ### Example
+
+  ```json
+  {
+	"SerialNumber": "2450D00133",
+	"ItemNumber": "8298350"
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: 200 OK
+  
+  request: {
+    url: {{baseUrl}}/Gateway/Id
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "SerialNumber": "",
+          "ItemNumber": ""
+        }
+      '''
+    }
+  }
+}

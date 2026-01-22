@@ -1,0 +1,100 @@
+meta {
+  name: getRBCCycleData
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/RBC/CycleData
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getRBCCycleData
+
+  Get the last recorded cycle data values.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (RBCCycleData)
+
+  ### Example
+
+  ```json
+  {
+  "Timestamp": 1736340000000,
+  "OexcVoltage": 26.5,
+  "OexcCurrent": 1.8,
+  "HoldVoltage": 12.0,
+  "HoldCurrent": 0.9,
+  "PeakCutOff": 2.5,
+  "Resistance": 21.0,
+  "FluxReserve": 35.0,
+  "CyclePower": 15.3,
+  "OexcTime": 58.0,
+  "T11": 60.0,
+  "T2": 120.0,
+  "CycleOnTime": 2200.0,
+  "CycleOffTime": 1800.0,
+  "SignalStrength": 75.0,
+  "ErrorCode": 0,
+  "MPUTemp": 45.0
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: 200 OK
+  
+  request: {
+    url: {{baseUrl}}/RBC/CycleData
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "Timestamp": 0,
+          "OexcVoltage": 0,
+          "OexcCurrent": 0,
+          "HoldVoltage": 0,
+          "HoldCurrent": 0,
+          "PeakCutOff": 0,
+          "Resistance": 0,
+          "FluxReserve": 0,
+          "CyclePower": 0,
+          "OexcTime": 0,
+          "T11": 0,
+          "T2": 0,
+          "CycleOnTime": 0,
+          "CycleOffTime": 0,
+          "SignalStrength": 0,
+          "ErrorCode": 0,
+          "MPUTemp": 0
+        }
+      '''
+    }
+  }
+}

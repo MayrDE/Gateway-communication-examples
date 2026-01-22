@@ -1,0 +1,154 @@
+meta {
+  name: putGatewayGlobalLogLevel
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/Gateway/GlobalLogLevel
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: {{username}}
+  password: {{password}}
+}
+
+docs {
+  # putGatewayGlobalLogLevel
+
+  Update the global log level of the gateway.
+
+  ## Required service level
+
+  `Service`
+
+  ## Body
+
+  `LogLevel`
+
+  - `Value`: integer 0..5
+
+  ### Example
+
+  ```json
+  {
+	"Value": 3
+  }
+  ```
+
+  ## Response
+
+  `204 No Content`
+
+  or
+
+  `400 Bad Request`
+
+  or
+
+  `401 Not Authorized`
+}
+
+body:json {
+  {
+    "Value": 0
+  }
+}
+
+example {
+  name: 204 Response
+  description: The operation was successful, and no content is returned.
+  
+  request: {
+    url: {{baseUrl}}/Gateway/GlobalLogLevel
+    method: PUT
+    mode: json
+    body:json: {
+      {
+        "Value": 0
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: The request body is malformed or invalid. Verify the request payload.
+  
+  request: {
+    url: {{baseUrl}}/Gateway/GlobalLogLevel
+    method: PUT
+    mode: json
+    body:json: {
+      {
+        "Value": 0
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: The request is unauthorized. Ensure proper authentication credentials are provided.
+  
+  request: {
+    url: {{baseUrl}}/Gateway/GlobalLogLevel
+    method: PUT
+    mode: json
+    body:json: {
+      {
+        "Value": 0
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": ""
+        }
+      '''
+    }
+  }
+}

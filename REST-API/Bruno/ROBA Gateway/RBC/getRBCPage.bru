@@ -1,0 +1,128 @@
+meta {
+  name: getRBCPage
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/RBC/Page/:page
+  body: none
+  auth: inherit
+}
+
+params:path {
+  page: 16
+}
+
+docs {
+  # getRBCPage
+  
+  Read an RBC page (1–15).
+  
+  ## Required service level
+  
+  `none`
+  
+  ## Parameters
+  
+  `page`
+  
+  - type: integer
+  - minimum: 1
+  - maximum: 15
+  
+  ## Body
+  
+  `none`
+  
+  ## Response
+  
+  `200 OK` (RBCPage)
+  
+  or
+  
+  `404 Bad Request`
+  
+  ### Example
+  
+  ```json
+  {
+    "Byte0": 118,
+    "Byte1": 50,
+    "Byte2": 46,
+    "Byte3": 49,
+    "Byte4": 118,
+    "Byte5": 52,
+    "Byte6": 46,
+    "Byte7": 48,
+    "Byte8": 46,
+    "Byte9": 49,
+    "Byte10": 48,
+    "Byte11": 48,
+    "Byte12": 203,
+    "Byte13": 129,
+    "Byte14": 0,
+    "Byte15": 0
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/RBC/Page/:page
+    method: GET
+    mode: none
+    params:path: {
+      page: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 404 Response
+  description: The request body is malformed or invalid. Verify the request payload.
+  
+  request: {
+    url: {{baseUrl}}/RBC/Page/:page
+    method: GET
+    mode: none
+    params:path: {
+      page: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
