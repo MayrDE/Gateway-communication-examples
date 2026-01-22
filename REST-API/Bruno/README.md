@@ -3,12 +3,12 @@
 ## Table of contents
 
 1. [Introduction](#introduction)
+1. [Supported Versions](#supported-versions)
 1. [Open a collection in Bruno](#open-a-collection-in-bruno)
 1. [Selecting an environment](#selecting-an-environment)
 1. [Configure and environment](#configure-an-environment)
-1. [Check the `Docs` tab](#check-the-docs-tab)
+1. [Detailed description of the requests](#detailed-description-of-the-requests)
 1. [Test the Gateway connection](#test-the-gateway-connection)
-1. [Send a PUT request without body](#send-a-put-request-without-body)
 1. [Send a PUT request with JSON body](#send-a-put-request-with-json-body)
 
 ## Introduction
@@ -21,140 +21,121 @@ We have created a collection of requests for you in the Bruno application to ens
 
 Please follow these steps on the website to get started with the Bruno app. Once you have finished the installation, follow the instructions below to load and use the collection of requests.
 
+## Supported Versions
+
+This documentation was created using the following versions. It may work with other  versions, but this is not guaranteed. 
+
+| Module                | Version           |
+|:--------------        |:------------------|
+| Bruno Desktop         | `3.0.1` or higher |
+| ROBA®-Gateway FW      | `1.0.0` or higher |
+| ROBA®-Gateway FS      | `1.0.0` or higher |
+| ROBA® brake-checker   | `4.0.0` or higher |
+ 
+
 ## Open a collection in Bruno
 
 Use one of the two buttons as shown in the image below to open an existing collection.
 
-![Open collection 1](Assets/OpenCollection1.png)
+![Open collection 1](Assets/00_OpenCollection.png)
 
-Navigate to the directory where the collection is stored. This should be usually `rdc-communication-examples/REST-API/Bruno/ROBA-Gateway` and click on `Select Folder`.
+Navigate to the directory where the collection is stored. This should be usually `gateway-communication-examples/REST-API/Bruno/ROBA Gateway` and click on `Select Folder`.
 
-![Open collection 2](Assets/OpenCollection2.png)
+![Open collection 2](Assets/01_SelectFolder.png)
 
 Once the collection has been opened you should see the collection in the Bruno collection view
 
-![Expand collection 1](Assets/ExpandCollection1.png)
+![Expand collection 1](Assets/02_SelectCollection.png)
 
-Expand the collection by clicking on `>`. The collection has been divided into two groups. The `RdcRotor` and the `RdcStator` groups. Each group provides a bunch of requests for the specific group. `RdcRotor` provides requests for the `rotor` or `sleeve` and `RdcStator` provides requests for the gateway itself.
+Expand the collection by clicking on `>`. The collection has been divided into two groups. The `Gateway` and the `RBC` group. Each group contains requests for the respective device. The `RBC` group contains requests for the ROBA® break-checker® which communicates via an IrDA-Interface with the ROBA®-Gateway.
 
-![Expand collection 2](Assets/ExpandCollection2.png)
+![Expand collection 2](Assets/03_ExpandCollection.png)
 
 Expand each group by clicking on `>`.
 
-![Expand collection 3](Assets/ExpandCollection3.png)
-
-## Selecting an environment
-
-To be able to send requests to the gateway an environment must be selected. If you click on the `getRdcRotorFilterSelection` request you will see that `{{baseUrl}}` of the `GET` request is highlighted in red. This means that the variable `baseUrl` is not found.
-
-If you have a closer look at the top right of the app you will see the environment selection drop-down which shows us `No Environment` is selected.
-
-![No environment](Assets/NoEnvironment.png)
-
-We have prepared two basic environments for you to start with.
-
-- `rdc-customer` for `Customer` user access
-- `rdc-service` for `Service` user access
-
-Click on the drop-down menu and select the `rdc-customer` environment.
-
-![Select environment](Assets/SelectEnvironment.png)
-
-Once the environment is selected and configured, the `baseUrl` variable should turn green.
-
-![Environment selected](Assets/EnvironmentSelected.png)
+![Expand collection 3](Assets/04_ExpandCollection2.png)
 
 ## Configure an environment
 
- After selecting the environment click on the environment drop-down again and select `Configure` to change environment variables as required for your network.
+To be able to send requests to the gateway an environment must be selected. If you click on the `putGatewayFactoryReset` request you will see that `{{baseUrl}}` of the `PUT` request is highlighted in red. This means that the variable `baseUrl` is not found.
 
-![Select environment](Assets/ConfigureEnvironment.png)
+If you have a closer look at the top right of the app you will see the environment selection drop-down which shows us `No Environment` is selected.
 
-`baseUrl` is the IP Address or hostname of the ROBA Gateway
+![No environment](Assets/05_NoEnvironment.png)
 
-`username` is the user you want to use for your requests.
+We have prepared two basic environments for you to start with.
 
-There are two different users (service level) available, `Customer` and `Service`. By default, the `Customer` user is selected, to prevent unauthorized access to protected `Service` features.
+- `customer` for `Customer` user access
+- `service` for `Service` user access
 
-TODO the following information is wrong!!!
- If you need access to `Service` features, please contact our customer support to request the `Service` password.
+To be able to use them, they first have to be configured correctly. Therefore click on the environment drop-down menu and select `Configure`.
 
-`password` is the password for the current user/service level. The password for the `Customer` user is always `kx`(device serial number)`!` as shown in the image below.
+![Select environment](Assets/06_ConfigureEnvironment.png)
 
-![Environments](Assets/Environments.png)
+Now you can see two Environments listed. Select the `customer` environment to configure it for your network. 
+- Default IP Address of the ROBA®-Gateway is `192.168.4.2`. 
+- Usernames have already been set to `Customer` and `Service` respectively.
+- The password of the user levels is specific to your device's serial number. Please refer to [Password Section](../../README.md#password-generation) for more information.
 
-After the `rdc-customer` environment is set up, you must update the `rdc-service` environment as well.
+After configuring the environment correctly, click on the environment drop-down menu again and select the `customer` environment to activate it.
+Once the environment is selected and configured, the `baseUrl` variable should turn green.
 
-## Check the `Docs` tab
+![Environment selected](Assets/08_baseUrlTurnsGreen.png)
 
-Every request has a `Docs` tab in it where we have a quick documentation for each request.
 
-The documentation is divided into the following sections.
+## Detailed description of the requests
 
-- A short description of the request
-- The required user/service for the request.
-- A description of the JSON values for the request
-- What values you have to expect with a `GET` request or what kind of values you have to send with a `PUT` request
-- An example of the JSON `Body` for `PUT` requests
-- Possible `Response` status codes and JSON response values
+Not every request is documented in the `Docs` tab. However, some of them are documented to give you an idea of how the requests are structured.
+For detailed descriptions of all requests, please refer to the [REST-API Request Documentation](../RequestDocumentation/) section, which is kept up to date.
 
-![Docs](Assets/Docs.png)
 
 ## Test the Gateway connection
 
-Now we are ready to test the connection to the ROBA Gateway. Please connect your PC to the same network as the ROBA®-Gateway before proceeding.
+Now we are ready to test the connection to the ROBA®- Gateway. Please connect your PC to the same network as the ROBA®-Gateway before proceeding.
 
-We highly recommend starting with `GET` requests to the gateway to get a feeling for how things work if you have never worked with REST-API commands.
+We highly recommend starting with `GET` requests to the gateway to get a feeling for how things work, if you have never worked with REST-API commands.
 
-Select the `getRdcStatorAnalogRange` request from the `RdcStator` group on the left side and click the `Send` button (the little right arrow) next to the `Save` button on the right as shown in the image below.
+Select the `getGatewayId` request from the `Gateway` group on the left side and click the `Send` button (the little right arrow) or use shortcut `Ctrl + Enter` to send the request as shown in the image below.
 
 If everything works as expected, you should see the `Response` from the gateway with a http status code `200 OK` as shown below.
 
-![Send GET request](Assets/SendGetRequest.png)
+![Send GET request](Assets/10_SendGetRequest.png)
 
-## Send a PUT request without body
-
-Some of the `PUT` requests do not require a JSON body and can be sent without it. For example, the `putRdcStatorReset` request is one of these commands.
-
-Select the `putRdcStatorReset` request from the `RdcStator` group on the left side and click the `Send` button next to the `Save` button on the right as shown in the image below.
-
-If the request has been sent successfully, the response status code should be `202 Accepted`. This request will restart the gateway immediately.
-
-![First PUT request](Assets/FirstPutRequest.png)
 
 ## Send a PUT request with JSON body
 
 > ATTENTION!
 >
-> This request will change the analog output configuration. Before proceeding, please make sure that the analog output is neither connected nor shortened.
+> This request will switch the output. Before proceeding, please make sure that **no** output is is connected.
 
 > NOTE!
 >
-> This request requires the user/service level `Service`, otherwise you will receive the status code `401 Unauthorized`
+> This request requires the user level `Customer`, otherwise you will receive the status code `401 Unauthorized`
 
-Click on the `Environment` drop-down menu and select the `rdc-service` environment.
+Click on the `Environment` drop-down menu and select the `customer` environment.
 
-Sending a `PUT` request is mostly like sending a `GET` request to the Gateway. The only difference is that some of the requests need an additional JSON `Body` for the request. We already have prepared the JSON `Body` object so you only need to change the value(s) for the request.
+Sending a `PUT` request is nearly the same like sending a `GET` request to the Gateway. The only difference is that some of the requests need an additional JSON `Body` for the request. We already have prepared the JSON `Body` object so you only need to change the value for the request.
 
 Please check out the `Docs` tab of the request for possible values for each request.
 
-Select the `putRdcStatorAnalogRange` request from the `RdcStator` group on the left side and click on the `Body` tab as shown in the image below.
+Select the `putGatewayOutput` request from the `Gateway` group on the left side and click on the `Params` tab as shown in the image below.
 
-In case of the analog output range, you only have the following two options
+In section `Path` we have to set the channel we want to modify. In this example, we want to modify channel `0`, so please set the value to `0`.
 
-- 0 = 0-10V
-- 1 = 0-20mA
+![Send Put request1](Assets/11_SendPutRequest.png)
 
-By default, the output range is set to `0` (0-10V output), change the value in the `Body` tab to `1` to choose the 0-20mA range like so.
-
+After selecting the channel, move to the `Body` tab. Set "value" to `true` to switch the output on.
 ```json
 {
   "Value": 1
 }
 ```
 
-If you only want to test the request, you can also leave the value at `0` and send the request directly. This will not change the analog output range, but you can see if the request is working or not.
+Send the request by clicking the `Send` button (the little right arrow) or use shortcut `Ctrl + Enter`. You should see the `Response` from the gateway with a http status code `204 No Content`.
 
-![Modify body](Assets/ModifyBody.png)
+
+![Send Put request2](Assets/12_SendPutRequest2.png)
+
+
 
 [Back to REST-API overview](../README.md)

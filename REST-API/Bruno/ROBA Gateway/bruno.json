@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "ROBA-Gateway",
+  "name": "ROBA Gateway",
   "type": "collection",
   "ignore": [
     "node_modules",

@@ -1,0 +1,83 @@
+meta {
+  name: getGatewayInput
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/Gateway/Input/:channel
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getGatewayInput
+
+  Get the state of an input from the gateway.
+
+  ## Required service level
+
+  `none`
+
+  ## Parameters
+
+  `channel`
+
+  - type: integer (uint8)
+  - minimum: 0
+  - maximum: 1
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (On/Off)
+
+  ### Example
+
+  ```json
+  {
+	"Value": true
+  }
+  ```
+}
+
+params:path {
+  channel: 
+}
+
+example {
+  name: 200 Response
+  description: Indicates whether a setting is enabled (on) or disabled (off).
+  
+  request: {
+    url: {{baseUrl}}/Gateway/Input/:channel
+    method: GET
+    mode: none
+    params:path: {
+      channel: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "Value": false
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,90 @@
+meta {
+  name: getRBCCurrentValues
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/RBC/CurrentValues
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getRBCCurrentValues
+
+  Returns the current values of the RBC like voltage, current etc.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (RBCCurrentValues)
+
+  ### Example
+
+  ```json
+  {
+	"Connected": true,
+	"Voltage": 24.0,
+	"Current": 1.2,
+	"State": 3,
+	"ErrorCode": 0,
+	"Error": false,
+	"SlowFast": true,
+	"Input": true,
+	"Output": true,
+	"Signal": true,
+	"Start": false,
+	"Warn": false
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: 200 OK
+  
+  request: {
+    url: {{baseUrl}}/RBC/CurrentValues
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "Connected": false,
+          "Voltage": 0,
+          "Current": 0,
+          "State": 0,
+          "ErrorCode": 0,
+          "Error": false,
+          "SlowFast": false,
+          "Input": false,
+          "Output": false,
+          "Signal": false,
+          "Start": false,
+          "Warn": false
+        }
+      '''
+    }
+  }
+}

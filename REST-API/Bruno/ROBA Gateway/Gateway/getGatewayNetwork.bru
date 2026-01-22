@@ -1,0 +1,102 @@
+meta {
+  name: getGatewayNetwork
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{baseUrl}}/Gateway/Network
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getGatewayNetwork
+
+  Get Gateway network settings.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (NetworkSettings)
+
+  ### Example
+
+  ```json
+  {
+  "hostname": "gateway-001",
+  "NetworkType": 2,
+  "dynamicIp": "192.168.1.50",
+  "dynamicSubnetMask": "255.255.255.0",
+  "dynamicGateway": "192.168.1.1",
+  "dynamicDNS1": "8.8.8.8",
+  "dynamicDNS2": "1.1.1.1",
+  "StaticIP": {
+    "StaticIPAddress": "192.168.1.10",
+    "StaticSubnet": "255.255.255.0",
+    "StaticGateway": "192.168.1.1",
+    "StaticDNS1": "8.8.8.8",
+    "StaticDNS2": "1.1.1.1"
+  },
+  "NtpSettings": {
+    "Enabled": true,
+    "Server": "pool.ntp.org"
+  }
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/Gateway/Network
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "hostname": "",
+          "NetworkType": 0,
+          "dynamicIp": "",
+          "dynamicSubnetMask": "",
+          "dynamicGateway": "",
+          "dynamicDNS1": "",
+          "dynamicDNS2": "",
+          "StaticIP": {
+            "StaticIPAddress": "",
+            "StaticSubnet": "",
+            "StaticGateway": "",
+            "StaticDNS1": "",
+            "StaticDNS2": ""
+          },
+          "NtpSettings": {
+            "Enabled": false,
+            "Server": ""
+          }
+        }
+      '''
+    }
+  }
+}
