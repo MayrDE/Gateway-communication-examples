@@ -1,0 +1,391 @@
+[
+    {
+        "id": "22386f0231bbaea0",
+        "type": "tab",
+        "label": "Websockets",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7edd1621ea13b3e1",
+        "type": "comment",
+        "z": "22386f0231bbaea0",
+        "name": "Receive/Send Websocket messages",
+        "info": "",
+        "x": 200,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "54e2a8c4800e0b3b",
+        "type": "websocket in",
+        "z": "22386f0231bbaea0",
+        "name": "MessageLogger",
+        "server": "",
+        "client": "c5fc26ca0fa427e6",
+        "x": 140,
+        "y": 420,
+        "wires": [
+            [
+                "31d33e1267e410df"
+            ]
+        ]
+    },
+    {
+        "id": "a3ef494079ca1aa4",
+        "type": "debug",
+        "z": "22386f0231bbaea0",
+        "name": "MessageLogger",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "7a4774f1fc67bd5d",
+        "type": "websocket in",
+        "z": "22386f0231bbaea0",
+        "name": "DataLogger",
+        "server": "",
+        "client": "49548d04e8263279",
+        "x": 130,
+        "y": 480,
+        "wires": [
+            [
+                "31d33e1267e410df"
+            ]
+        ]
+    },
+    {
+        "id": "771c2b77c063a83a",
+        "type": "websocket out",
+        "z": "22386f0231bbaea0",
+        "name": "Send Command",
+        "server": "",
+        "client": "c5fc26ca0fa427e6",
+        "x": 620,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "12b65c0df24f2842",
+        "type": "inject",
+        "z": "22386f0231bbaea0",
+        "name": "Set Output 0",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Topic\":\"/Gateway/Outputs\",\"Number\":\"0\",\"Value\":true}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 540,
+        "wires": [
+            [
+                "771c2b77c063a83a"
+            ]
+        ]
+    },
+    {
+        "id": "a32932b57b12920b",
+        "type": "inject",
+        "z": "22386f0231bbaea0",
+        "name": "Reset Output 0",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Topic\":\"/Gateway/Outputs\",\"Number\":\"0\",\"Value\":false}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 600,
+        "wires": [
+            [
+                "771c2b77c063a83a"
+            ]
+        ]
+    },
+    {
+        "id": "31d33e1267e410df",
+        "type": "function",
+        "z": "22386f0231bbaea0",
+        "name": "stringify",
+        "func": "msg.payload = msg.payload.toString('ascii');\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 420,
+        "wires": [
+            [
+                "a3ef494079ca1aa4"
+            ]
+        ]
+    },
+    {
+        "id": "952611d0690bf695",
+        "type": "comment",
+        "z": "22386f0231bbaea0",
+        "name": "Authenticate via REST-API",
+        "info": "",
+        "x": 170,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "4b695165b0d287b8",
+        "type": "http request",
+        "z": "22386f0231bbaea0",
+        "name": "Login",
+        "method": "PUT",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 650,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "59c3efb2d5852b07",
+        "type": "function",
+        "z": "22386f0231bbaea0",
+        "name": "prepareLogin",
+        "func": "var hostname = flow.get(\"hostname\");\nvar userlevel = msg.userlevel;\nvar password = msg.password;\nvar path = \"\";\n\n\nif (userlevel == \"Customer\") {\n    //send dummy message for feature which requires level Customer\n    path = \"/Gateway/Output/0\";\n    msg.payload = \"{\\\"Dummy\\\": \\\"dummy\\\"}\";\n}\nelse if(userlevel == \"Service\"){\n    //send dummy message for feature which requires level Service\n    //gateway will not do any action, as payload is not valid\n    path = \"/Gateway/GlobalLogLevel\";\n    msg.payload = \"{\\\"Dummy\\\": \\\"dummy\\\"}\";\n}\nelse\n{\n    msg.error(\"Unknown Userlevel\")\n}\n\nmsg.url = \"http://\" + hostname + path;\n// set Basic Authorization header using Base64(user:pass)\nvar creds = Buffer.from(userlevel + \":\" + password).toString(\"base64\");\nmsg.headers = msg.headers || {};\nmsg.headers.Authorization = \"Basic \" + creds;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "4b695165b0d287b8",
+                "763f6f4f6d96b0e1"
+            ]
+        ]
+    },
+    {
+        "id": "b5ccdecce8cefc2d",
+        "type": "inject",
+        "z": "22386f0231bbaea0",
+        "name": "Authenticate \"Customer\"",
+        "props": [
+            {
+                "p": "userlevel",
+                "v": "Customer",
+                "vt": "str"
+            },
+            {
+                "p": "password",
+                "v": "customerPassword",
+                "vt": "flow"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "59c3efb2d5852b07"
+            ]
+        ]
+    },
+    {
+        "id": "763f6f4f6d96b0e1",
+        "type": "debug",
+        "z": "22386f0231bbaea0",
+        "name": "Debug Auth",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "8d813f88e433c141",
+        "type": "change",
+        "z": "22386f0231bbaea0",
+        "name": "EDITME: Set Variables",
+        "rules": [
+            {
+                "t": "set",
+                "p": "customerPassword",
+                "pt": "flow",
+                "to": "kx2521D00163!",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "servicePassword",
+                "pt": "flow",
+                "to": "Hc00163!D2521T",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "hostname",
+                "pt": "flow",
+                "to": "192.168.200.215",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3a0532b7802213bb",
+        "type": "inject",
+        "z": "22386f0231bbaea0",
+        "name": "Configure Variables",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "8d813f88e433c141"
+            ]
+        ]
+    },
+    {
+        "id": "31a07dd01b2356b1",
+        "type": "inject",
+        "z": "22386f0231bbaea0",
+        "name": "Authenticate \"Service\"",
+        "props": [
+            {
+                "p": "userlevel",
+                "v": "Service",
+                "vt": "str"
+            },
+            {
+                "p": "password",
+                "v": "servicePassword",
+                "vt": "flow"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "59c3efb2d5852b07"
+            ]
+        ]
+    },
+    {
+        "id": "f85dc3c5465597c5",
+        "type": "inject",
+        "z": "22386f0231bbaea0",
+        "name": "Factory Reset",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Topic\":\"/Gateway/FactoryReset\"}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 660,
+        "wires": [
+            [
+                "771c2b77c063a83a"
+            ]
+        ]
+    },
+    {
+        "id": "f7d9b8b6a68c64d0",
+        "type": "comment",
+        "z": "22386f0231bbaea0",
+        "name": "How to configure this example",
+        "info": "In the Websockets in and out node  \nyou have to modify the ip address in URL\nto your Gateway.\n\nFor authentication you also need to Edit\nEDITME: Set Variables",
+        "x": 180,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "c5fc26ca0fa427e6",
+        "type": "websocket-client",
+        "path": "ws://192.168.200.215:81/MessageLogger",
+        "tls": "",
+        "wholemsg": "false",
+        "hb": "0",
+        "subprotocol": "",
+        "headers": []
+    },
+    {
+        "id": "49548d04e8263279",
+        "type": "websocket-client",
+        "path": "ws://192.168.200.215:81/DataLogger",
+        "tls": "",
+        "wholemsg": "false",
+        "hb": "0",
+        "subprotocol": "",
+        "headers": []
+    }
+]

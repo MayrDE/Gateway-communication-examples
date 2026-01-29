@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>ROBA Gateway Websocket Example</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+	<header class="app-header">
+		<h1>ROBA® Gateway Websocket Example</h1>
+		<div class="host-input">
+			<label for="host">Gateway Hostname/IP</label>
+			<input id="host" type="text" placeholder="e.g. 192.168.4.2 or my-gateway.local" />
+		</div>
+	</header>
+
+	<main class="grid">
+		<!-- Logger Area -->
+		<section class="card" id="logger-section">
+			<div class="card-header">
+				<h2>Logger</h2>
+			</div>
+			<div class="card-body">
+				<div class="field">
+					<label for="loggerType">Logger Type</label>
+					<input id="loggerType" type="text" list="loggerTypes" placeholder="MessageLogger / DataLogger / RawDataLogger" />
+					<datalist id="loggerTypes">
+						<option value="MessageLogger"></option>
+						<option value="DataLogger"></option>
+						<option value="RawDataLogger"></option>
+					</datalist>
+				</div>
+				<div class="actions">
+					<button id="loggerToggleBtn" data-state="disconnected">Connect to logger</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Command Area -->
+		<section class="card" id="command-section">
+			<div class="card-header">
+				<h2>Command</h2>
+			</div>
+			<div class="card-body">
+				<div class="field">
+					<label for="payload">Payload</label>
+					<textarea id="payload" rows="6" placeholder='{"cmd":"ping"}'></textarea>
+				</div>
+				<div class="actions">
+					<button id="commandToggleBtn" data-state="disconnected">Connect</button>
+					<button id="sendBtn" disabled>Send</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Output Area -->
+		<section class="card" id="output-section">
+			<div class="card-header">
+				<h2>Output</h2>
+			</div>
+			<div class="card-body">
+				<div id="output" class="output-box" aria-live="polite" aria-label="WebSocket messages"></div>
+				<div class="hint">Showing last 10 messages</div>
+			</div>
+		</section>
+	</main>
+
+	<script src="script.js"></script>
+	<noscript>Your browser does not support JavaScript or it is disabled.</noscript>
+</body>
+  
+</html>
