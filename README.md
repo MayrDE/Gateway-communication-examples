@@ -53,9 +53,9 @@ Fill values are added to the password at the positions where -1 is set in the cu
 char fillValues[] = { 'k', 'x', '!' };
 ```
 
-## Current implementation in ROBA®-Gateway
+### Current implementation in ROBA®-Gateway
 
-### Customer password
+#### Customer password
 
 order = { -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1 }
 
@@ -74,7 +74,7 @@ The password is:
 kx2419D00008!
 ```
 
-### Service password
+#### Service password
 
 order = { -1, -1, 5, 6, 7, 8, 9, -1, 4, 0, 1, 2, 3, -1 }
 
@@ -93,7 +93,7 @@ The password is:
 Hc00108!D2419T
 ```
 
-### C/C++ Code
+#### C/C++ Code
 
 ```c
 /*!
