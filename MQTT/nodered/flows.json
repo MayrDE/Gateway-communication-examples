@@ -1,0 +1,668 @@
+[
+    {
+        "id": "1e0c503d21209aeb",
+        "type": "tab",
+        "label": "MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "18",
+        "type": "change",
+        "z": "1e0c503d21209aeb",
+        "name": "Set Variables",
+        "rules": [
+            {
+                "t": "set",
+                "p": "broker",
+                "pt": "global",
+                "to": "10.10.40.216",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topicBase",
+                "pt": "global",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "gatewaySerialnumber",
+                "pt": "global",
+                "to": "2521D00163",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "rbcSerialnumber",
+                "pt": "global",
+                "to": "1234D12345",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "19",
+        "type": "inject",
+        "z": "1e0c503d21209aeb",
+        "name": "Configure Variables",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "18"
+            ]
+        ]
+    },
+    {
+        "id": "5d8237dcd429887c",
+        "type": "debug",
+        "z": "1e0c503d21209aeb",
+        "name": "publish",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "bbeab81f497f8dac",
+        "type": "aedes broker",
+        "z": "1e0c503d21209aeb",
+        "name": "Aedes Broker",
+        "mqtt_port": "1883",
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "persistence_bind": "memory",
+        "dburl": "",
+        "usetls": false,
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "a8a15551837c0b24"
+            ],
+            [
+                "5d8237dcd429887c"
+            ]
+        ]
+    },
+    {
+        "id": "0c24bda8b232013c",
+        "type": "comment",
+        "z": "1e0c503d21209aeb",
+        "name": "Publish",
+        "info": "",
+        "x": 110,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "a8a15551837c0b24",
+        "type": "debug",
+        "z": "1e0c503d21209aeb",
+        "name": "broker events",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "1ef3f576a876a91a",
+        "type": "inject",
+        "z": "1e0c503d21209aeb",
+        "name": "Set Output 0 ON",
+        "props": [
+            {
+                "p": "device",
+                "v": "Gateway",
+                "vt": "str"
+            },
+            {
+                "p": "topicSpecification",
+                "v": "Outputs/0/Set",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 760,
+        "y": 120,
+        "wires": [
+            [
+                "90c5203dffa15769"
+            ]
+        ]
+    },
+    {
+        "id": "fcb0c59301e4fd99",
+        "type": "mqtt in",
+        "z": "1e0c503d21209aeb",
+        "name": "Sub",
+        "topic": "",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "1516980748af5926",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 170,
+        "y": 660,
+        "wires": [
+            [
+                "5c3fa37b8ea1c896"
+            ]
+        ]
+    },
+    {
+        "id": "5c3fa37b8ea1c896",
+        "type": "debug",
+        "z": "1e0c503d21209aeb",
+        "name": "SubscribeDebug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "0bde9556f5cebde5",
+        "type": "comment",
+        "z": "1e0c503d21209aeb",
+        "name": "Subscribe",
+        "info": "",
+        "x": 120,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "e051d95589d06aca",
+        "type": "mqtt out",
+        "z": "1e0c503d21209aeb",
+        "name": "Pub",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1516980748af5926",
+        "x": 400,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "ccae5faf76a2d88b",
+        "type": "function",
+        "z": "1e0c503d21209aeb",
+        "name": "modify topic",
+        "func": "var newMsg = msg;\n\n//get the variables\nvar mqttModuleId = null;\nvar topicBase = global.get(\"topicBase\");\nvar topicSpecification = msg.topicSpecification;\nvar device = msg.device;\nif(device == \"Gateway\"){\n    mqttModuleId = global.get(\"gatewaySerialnumber\");\n}\nelse if(device == \"RBC\"){\n    mqttModuleId = global.get(\"rbcSerialnumber\");\n}\n\n\n\nif(topicBase == \"\"){\n    newMsg.topic = device + \"/\" + mqttModuleId + \"/\" + topicSpecification;\n}\nelse{\n    newMsg.topic = topicBase + \"/\" + device + mqttModuleId + \"/\" + topicSpecification;\n}\n\nreturn newMsg",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 500,
+        "wires": [
+            [
+                "e051d95589d06aca",
+                "6b1ac0cf974b3e94"
+            ]
+        ]
+    },
+    {
+        "id": "6b1ac0cf974b3e94",
+        "type": "debug",
+        "z": "1e0c503d21209aeb",
+        "name": "publishDebug",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "fb5d4355fbeba67b",
+        "type": "comment",
+        "z": "1e0c503d21209aeb",
+        "name": "GatewayTopics",
+        "info": "",
+        "x": 740,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e4cdca4034b3aeff",
+        "type": "comment",
+        "z": "1e0c503d21209aeb",
+        "name": "RBC Topics",
+        "info": "",
+        "x": 1230,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "6b67059adc2ab611",
+        "type": "comment",
+        "z": "1e0c503d21209aeb",
+        "name": "EDIT SetVariables!",
+        "info": "",
+        "x": 150,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "377c5d7654a1b91b",
+        "type": "inject",
+        "z": "1e0c503d21209aeb",
+        "name": "Set Output 0 OFF",
+        "props": [
+            {
+                "p": "device",
+                "v": "Gateway",
+                "vt": "str"
+            },
+            {
+                "p": "topicSpecification",
+                "v": "Outputs/0/Set",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 770,
+        "y": 180,
+        "wires": [
+            [
+                "90c5203dffa15769"
+            ]
+        ]
+    },
+    {
+        "id": "90c5203dffa15769",
+        "type": "link out",
+        "z": "1e0c503d21209aeb",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [
+            "c6f902136241aad8"
+        ],
+        "x": 995,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "c6f902136241aad8",
+        "type": "link in",
+        "z": "1e0c503d21209aeb",
+        "name": "link in 1",
+        "links": [
+            "90c5203dffa15769",
+            "75babb567f9cdce4"
+        ],
+        "x": 75,
+        "y": 500,
+        "wires": [
+            [
+                "ccae5faf76a2d88b"
+            ]
+        ]
+    },
+    {
+        "id": "589b17a1aab72d01",
+        "type": "inject",
+        "z": "1e0c503d21209aeb",
+        "name": "Set Output 1 ON",
+        "props": [
+            {
+                "p": "device",
+                "v": "Gateway",
+                "vt": "str"
+            },
+            {
+                "p": "topicSpecification",
+                "v": "Outputs/1/Set",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 760,
+        "y": 260,
+        "wires": [
+            [
+                "90c5203dffa15769"
+            ]
+        ]
+    },
+    {
+        "id": "c189bd516b090c42",
+        "type": "inject",
+        "z": "1e0c503d21209aeb",
+        "name": "Set Output 0 OFF",
+        "props": [
+            {
+                "p": "device",
+                "v": "Gateway",
+                "vt": "str"
+            },
+            {
+                "p": "topicSpecification",
+                "v": "Outputs/1/Set",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 770,
+        "y": 320,
+        "wires": [
+            [
+                "90c5203dffa15769"
+            ]
+        ]
+    },
+    {
+        "id": "4f85bd3f2a62d251",
+        "type": "inject",
+        "z": "1e0c503d21209aeb",
+        "name": "Reset",
+        "props": [
+            {
+                "p": "device",
+                "v": "Gateway",
+                "vt": "str"
+            },
+            {
+                "p": "topicSpecification",
+                "v": "Reset",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "null",
+        "payloadType": "jsonata",
+        "x": 730,
+        "y": 400,
+        "wires": [
+            [
+                "90c5203dffa15769"
+            ]
+        ]
+    },
+    {
+        "id": "1878891d9a88500b",
+        "type": "inject",
+        "z": "1e0c503d21209aeb",
+        "name": "Reset",
+        "props": [
+            {
+                "p": "device",
+                "v": "RBC",
+                "vt": "str"
+            },
+            {
+                "p": "topicSpecification",
+                "v": "Reset",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "null",
+        "payloadType": "jsonata",
+        "x": 1230,
+        "y": 180,
+        "wires": [
+            [
+                "75babb567f9cdce4"
+            ]
+        ]
+    },
+    {
+        "id": "ad8ca7987e846290",
+        "type": "inject",
+        "z": "1e0c503d21209aeb",
+        "name": "Set Config",
+        "props": [
+            {
+                "p": "device",
+                "v": "RBC",
+                "vt": "str"
+            },
+            {
+                "p": "topicSpecification",
+                "v": "Config/Set",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"ID\":32,\"ControlType\":32,\"ControlMode\":1,\"Overexcitation\":32,\"Holding\":12,\"CoilVoltage\":0,\"OexcTime\":0,\"ArmDiscCondRec\":true,\"SoftStart\":false,\"DampedBrake\":false,\"FreeWheelingVoltage\":0,\"ScopeMode\":true,\"ShutdownAutomatic\":false,\"PrevFuncMon\":true}",
+        "payloadType": "json",
+        "x": 1240,
+        "y": 120,
+        "wires": [
+            [
+                "75babb567f9cdce4"
+            ]
+        ]
+    },
+    {
+        "id": "75babb567f9cdce4",
+        "type": "link out",
+        "z": "1e0c503d21209aeb",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "c6f902136241aad8"
+        ],
+        "x": 1445,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b0e82b0a86bfbf62",
+        "type": "inject",
+        "z": "1e0c503d21209aeb",
+        "name": "Start Broker",
+        "props": [
+            {
+                "p": "action",
+                "v": "connect",
+                "vt": "str"
+            },
+            {
+                "p": "broker",
+                "v": "{\t    \"broker\": $globalContext(\"broker\"),\t    \"port\": $globalContext(\"port\"),\t    \"force\": true\t}",
+                "vt": "jsonata"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "ca9351d8771b11e5"
+            ]
+        ]
+    },
+    {
+        "id": "ca9351d8771b11e5",
+        "type": "link out",
+        "z": "1e0c503d21209aeb",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "5bd39e4cb2e05c37"
+        ],
+        "x": 325,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "5bd39e4cb2e05c37",
+        "type": "link in",
+        "z": "1e0c503d21209aeb",
+        "name": "link in 2",
+        "links": [
+            "ca9351d8771b11e5"
+        ],
+        "x": 75,
+        "y": 660,
+        "wires": [
+            [
+                "fcb0c59301e4fd99"
+            ]
+        ]
+    },
+    {
+        "id": "1516980748af5926",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "placeholderBroker",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": false,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b489a608e5c860e2",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-aedes": "0.15.0"
+        }
+    }
+]
