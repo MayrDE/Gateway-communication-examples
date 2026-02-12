@@ -1,4 +1,4 @@
-# ROBA®-Gateway WebSocket documentation
+# ROBA® gateway WebSocket documentation
 
 ## Table of contents
 
@@ -11,7 +11,7 @@
 
 ## Introduction
 
-The ROBA® Gateway has a WebSocket-Server which is enabled by default. We use WebSockets over REST-API or Modbus TCP for data transfer because it reduces network traffic and it is fast and reliable.
+The gateway has a WebSocket-Server which is enabled by default. We use WebSockets over REST-API for data transfer because it reduces network traffic and it is fast and reliable.
 
 So far we have only insecure WebSockets `ws://` implemented. Therefore the secure `wss://` connections are not supported.
 
@@ -23,14 +23,14 @@ Some websocket features require authentication. The authentication can be done v
 
 ## Setup
 
-The websocket server is enabled by default on the ROBA® Gateway. No further configuration is necessary.
+The websocket server is enabled by default on the gateway. No further configuration is necessary.
 Connections can be established via the URI `ws://hostname:81/` plus the logger type (see below). The default port is `81` and cannot be changed.  
 The maximum number of clients/subscribers per WebSocket endpoint is limited to 2.  
-For sending commands from the client to the ROBA® Gateway, it is necessary to first establish the connection to a logger (usally the `MessageLogger`).
+For sending commands from the client to the gateway, it is necessary to first establish the connection to a logger (usally the `MessageLogger`).
 
 ## Connection Endpoints
 
-**Message logger**
+### Message logger
 
 Sends the Debug print messages and system status information in binary format. The output depends on the current Debug level.
 
@@ -45,16 +45,16 @@ Every message contains a unix time stamp, a log level, the message source and th
 4939 [INF] [OneWire] DS1820 sensor found
 ```
 
-**Data logger**
+### Data logger
 
 Sends application data whenever they are updated.
-- [Cycle Data](../MQTT/TopicDocumentation/Topics_RBC.md#cycle-data)
-- [CurrentValues](../MQTT/TopicDocumentation/Topics_RBC.md#cycle-data)
-- [SensorData](../MQTT/TopicDocumentation/Topics_RBC.md#cycle-data)
-- [Inputs](../MQTT/TopicDocumentation/Topics_RBC.md#cycle-data)
-- [Outputs](../MQTT/TopicDocumentation/Topics_RBC.md#cycle-data)
-- [ConfigData](../MQTT/TopicDocumentation/Topics_RBC.md#cycle-data)
-- [RBCConnectionData](../MQTT/TopicDocumentation/Topics_RBC.md#cycle-data)
+
+- [Cycle Data](../CommunicationSpec//RBC_Response_CycleData.md)
+- [CurrentValues](../CommunicationSpec/RBC_Response_CycleData.md)
+- [SensorData](../CommunicationSpec/Gateway_Response_OneWireData.md)
+- [Inputs](../CommunicationSpec/Gateway_Response_Input.md)
+- [Outputs](../CommunicationSpec/Gateway_Response_Output.md)
+- [ConfigData](../CommunicationSpec/RBC_Response_Config.md)
 
 URL: `ws://hostname:81/DataLogger`  
 Data type: `JSON text`
@@ -111,24 +111,17 @@ Example:
 }
 ```
 
-**Raw data logger**
-
-TODO not clear if we keep this here.
-
-Sends raw data of the ROBA® brake-checker® measurements, collected over TOSLINK interface.
-This is a deep dive into the raw data stream and is intended for internal use only.
-
-
-URL: `ws://hostname:81/RawDataLogger`  
-Data type: `binary`
-
 ## Message Documentation
 
-For detailed information about the available WebSocket messages please refer to the [WebSocket Message Documentation](Message_Documentation/Gateway_Messages.md).
+For detailed information about the available WebSocket messages please refer to the [CommunicationSpec](../CommunicationSpec/README.md).
 
 ## Application examples
 
-For fast getting started with WebSocket communication to the ROBA® Gateway we provide some application examples.
+For fast getting started with WebSocket communication to the gateway we provide some application examples.
 
 - [HTML Javascript example](Html_JavaScript/README.md)
 - [NODE-RED](NODE-RED/README.md)
+
+---
+
+[Back to ROBA® gateway main page](../README.md)

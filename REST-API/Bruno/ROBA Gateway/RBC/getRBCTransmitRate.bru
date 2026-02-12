@@ -1,7 +1,7 @@
 meta {
   name: getRBCTransmitRate
   type: http
-  seq: 7
+  seq: 6
 }
 
 get {
@@ -12,28 +12,28 @@ get {
 
 docs {
   # getRBCTransmitRate
-
+  
   Get the current RBC transmit rate value in milliseconds.
-
+  
   ## Required service level
-
+  
   `none`
-
+  
   ## Body
-
+  
   `none`
-
+  
   ## Response
-
+  
   `200 OK`
-
+  
   - `Value`: integer (0..65535)
-
+  
   ### Example
-
+  
   ```json
   {
-	"Value": 100
+  	"Value": 100
   }
   ```
 }

@@ -104,35 +104,6 @@
         ]
     },
     {
-        "id": "53b693bdf9283908",
-        "type": "inject",
-        "z": "9727d69723ecfd0b",
-        "name": "2s",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "2",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "/RdcRotor/ProcessData",
-        "payload": "",
-        "payloadType": "date",
-        "x": 110,
-        "y": 1120,
-        "wires": [
-            [
-                "d6d166dcfcc1e920"
-            ]
-        ]
-    },
-    {
         "id": "e46a2845bae6de5a",
         "type": "catch",
         "z": "9727d69723ecfd0b",
@@ -195,7 +166,7 @@
         "type": "function",
         "z": "9727d69723ecfd0b",
         "name": "EDIT ME: init",
-        "func": "//Set the correct hostname, userlevel and password here!\nlet hostname = \"gateway-2521d00163/\";\nlet userlevel = \"Customer\";\nlet password = \"kx2521D00163!\";\n\n\n//Dashboard init values\n//DO NOT CHANGE THE FOLLOWING\nflow.set (\"Run\", false);\nflow.set (\"Outputnumber\", 0);\nflow.set (\"RBCPage\", 1);\nglobal.set(\"Hostname\", hostname);\nglobal.set(\"Userlevel\", userlevel);\nglobal.set(\"Password\", password);\n\n\n\n",
+        "func": "//Set the correct hostname, userlevel and password here!\nlet hostname = \"gateway-2521d00163/\";\nlet userlevel = \"Service\";\nlet password = \"Hc00163!D2521T\";\n\n\n//Dashboard init values\n//DO NOT CHANGE THE FOLLOWING\nflow.set (\"Run\", false);\nflow.set (\"Outputnumber\", 0);\nglobal.set(\"Hostname\", hostname);\nglobal.set(\"Userlevel\", userlevel);\nglobal.set(\"Password\", password);\n\n\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -206,54 +177,6 @@
         "y": 120,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "d6d166dcfcc1e920",
-        "type": "function",
-        "z": "9727d69723ecfd0b",
-        "name": "check run",
-        "func": "if(flow.get(\"Run\"))\n{\n    var newMsg = { payload: 0, topic: \"/RdcRotor/ProcessData\", method: \"GET\"};\n    return newMsg;\n}",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 260,
-        "y": 1120,
-        "wires": [
-            [
-                "eb2f147f325cd204"
-            ]
-        ]
-    },
-    {
-        "id": "9401addbb3ad36b7",
-        "type": "ui_button",
-        "z": "9727d69723ecfd0b",
-        "name": "",
-        "group": "781b6815d353fd77",
-        "order": 10,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "Output ON",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "{\"Value\":true}",
-        "payloadType": "str",
-        "topic": "Gateway/Output/",
-        "topicType": "str",
-        "x": 270,
-        "y": 1280,
-        "wires": [
-            [
-                "d5144a6981494451"
-            ]
         ]
     },
     {
@@ -332,8 +255,7 @@
         "y": 800,
         "wires": [
             [
-                "2d6a3ba30ab509a8",
-                "64598e32cd7f6141"
+                "2d6a3ba30ab509a8"
             ]
         ]
     },
@@ -359,7 +281,7 @@
         "type": "debug",
         "z": "9727d69723ecfd0b",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -509,39 +431,15 @@
         ]
     },
     {
-        "id": "eddc45236547d633",
-        "type": "comment",
-        "z": "9727d69723ecfd0b",
-        "name": "Dashboard example",
-        "info": "",
-        "x": 130,
-        "y": 1000,
-        "wires": []
-    },
-    {
-        "id": "eb2f147f325cd204",
-        "type": "link out",
-        "z": "9727d69723ecfd0b",
-        "name": "Get ProcessData",
-        "mode": "link",
-        "links": [
-            "599e9084409c85d6"
-        ],
-        "x": 775,
-        "y": 1120,
-        "wires": []
-    },
-    {
         "id": "599e9084409c85d6",
         "type": "link in",
         "z": "9727d69723ecfd0b",
         "name": "request in",
         "links": [
             "097716d0ef7d081f",
-            "103eae957d48552a",
             "a7a4c91a978d91d8",
-            "eb2f147f325cd204",
-            "955f9961d9235248"
+            "955f9961d9235248",
+            "39bc9a0dd04ee0fa"
         ],
         "x": 55,
         "y": 800,
@@ -1025,55 +923,6 @@
         ]
     },
     {
-        "id": "1e72a28cae5a3233",
-        "type": "inject",
-        "z": "9727d69723ecfd0b",
-        "name": "GET Page",
-        "props": [
-            {
-                "p": "topic",
-                "vt": "str"
-            },
-            {
-                "p": "method",
-                "v": "GET",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "/RBC/Page/",
-        "x": 1300,
-        "y": 320,
-        "wires": [
-            [
-                "a24cd80c3a519d4f"
-            ]
-        ]
-    },
-    {
-        "id": "a24cd80c3a519d4f",
-        "type": "function",
-        "z": "9727d69723ecfd0b",
-        "name": "select page",
-        "func": "//Edit the page to select here:\n//It can be 1...15\nvar page = \"1/\";\n\nvar newMsg = msg;\nnewMsg.topic = newMsg.topic + page\n\n\nreturn newMsg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1470,
-        "y": 320,
-        "wires": [
-            [
-                "097716d0ef7d081f"
-            ]
-        ]
-    },
-    {
         "id": "92278cc073684609",
         "type": "inject",
         "z": "9727d69723ecfd0b",
@@ -1097,603 +946,22 @@
         "x": 1720,
         "y": 120,
         "wires": [
-            []
-        ]
-    },
-    {
-        "id": "45adb38b294f551d",
-        "type": "ui_button",
-        "z": "9727d69723ecfd0b",
-        "name": "",
-        "group": "781b6815d353fd77",
-        "order": 9,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "OUTPUT OFF",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "{\"Value\":false}",
-        "payloadType": "str",
-        "topic": "Gateway/Output/",
-        "topicType": "str",
-        "x": 280,
-        "y": 1320,
-        "wires": [
             [
-                "d5144a6981494451"
+                "39bc9a0dd04ee0fa"
             ]
         ]
     },
     {
-        "id": "d5144a6981494451",
-        "type": "function",
+        "id": "39bc9a0dd04ee0fa",
+        "type": "link out",
         "z": "9727d69723ecfd0b",
-        "name": "send msg",
-        "func": "var newMsg = msg;\n \nnewMsg.method = \"PUT\";\nnewMsg.topic = msg.topic + flow.get(\"Outputnumber\")\nreturn newMsg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 1280,
-        "wires": [
-            [
-                "eb2f147f325cd204"
-            ]
-        ]
-    },
-    {
-        "id": "cecda69f0687e9df",
-        "type": "ui_button",
-        "z": "9727d69723ecfd0b",
-        "name": "",
-        "group": "781b6815d353fd77",
-        "order": 6,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "Get RBC Page",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "RBC/Page/",
-        "topicType": "str",
-        "x": 280,
-        "y": 1400,
-        "wires": [
-            [
-                "cc5329b0e4674155"
-            ]
-        ]
-    },
-    {
-        "id": "125de5320d2905a9",
-        "type": "ui_dropdown",
-        "z": "9727d69723ecfd0b",
-        "name": "",
-        "label": "Output number",
-        "tooltip": "",
-        "place": "Output0",
-        "group": "781b6815d353fd77",
-        "order": 8,
-        "width": 5,
-        "height": 1,
-        "passthru": false,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Output0",
-                "value": 0,
-                "type": "num"
-            },
-            {
-                "label": "Output1",
-                "value": 1,
-                "type": "num"
-            }
+        "name": "request OUT 2",
+        "mode": "link",
+        "links": [
+            "599e9084409c85d6"
         ],
-        "payload": "",
-        "topic": "Outputnumber",
-        "topicType": "msg",
-        "className": "",
-        "x": 280,
-        "y": 1240,
-        "wires": [
-            [
-                "976f5f5d6f193e50"
-            ]
-        ]
-    },
-    {
-        "id": "2b92e36d47b63de6",
-        "type": "ui_dropdown",
-        "z": "9727d69723ecfd0b",
-        "name": "",
-        "label": "RBC Page",
-        "tooltip": "",
-        "place": "Output0",
-        "group": "781b6815d353fd77",
-        "order": 5,
-        "width": 5,
-        "height": 1,
-        "passthru": false,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Page1",
-                "value": 1,
-                "type": "num"
-            },
-            {
-                "label": "Page2",
-                "value": 2,
-                "type": "num"
-            },
-            {
-                "label": "Page3",
-                "value": 3,
-                "type": "num"
-            },
-            {
-                "label": "Page4",
-                "value": 4,
-                "type": "num"
-            },
-            {
-                "label": "Page5",
-                "value": 5,
-                "type": "num"
-            },
-            {
-                "label": "Page6",
-                "value": 6,
-                "type": "num"
-            },
-            {
-                "label": "Page7",
-                "value": 7,
-                "type": "num"
-            },
-            {
-                "label": "Page8",
-                "value": 8,
-                "type": "num"
-            },
-            {
-                "label": "Page9",
-                "value": 9,
-                "type": "num"
-            },
-            {
-                "label": "Page10",
-                "value": 10,
-                "type": "num"
-            },
-            {
-                "label": "Page11",
-                "value": 11,
-                "type": "num"
-            },
-            {
-                "label": "Page12",
-                "value": 12,
-                "type": "num"
-            },
-            {
-                "label": "Page13",
-                "value": 13,
-                "type": "num"
-            },
-            {
-                "label": "Page14",
-                "value": 14,
-                "type": "num"
-            },
-            {
-                "label": "Page15",
-                "value": 15,
-                "type": "num"
-            }
-        ],
-        "payload": "",
-        "topic": "RBCPage",
-        "topicType": "msg",
-        "className": "",
-        "x": 270,
-        "y": 1360,
-        "wires": [
-            [
-                "7f3507d0baf784e3"
-            ]
-        ]
-    },
-    {
-        "id": "cc5329b0e4674155",
-        "type": "function",
-        "z": "9727d69723ecfd0b",
-        "name": "send msg",
-        "func": "var newMsg = msg;\n \nnewMsg.method = \"GET\";\nnewMsg.topic = msg.topic + flow.get(\"RBCPage\")\nreturn newMsg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 1400,
-        "wires": [
-            [
-                "eb2f147f325cd204"
-            ]
-        ]
-    },
-    {
-        "id": "a1d6e1d3e09180a7",
-        "type": "ui_text",
-        "z": "9727d69723ecfd0b",
-        "group": "781b6815d353fd77",
-        "order": 12,
-        "width": 11,
-        "height": 9,
-        "name": "",
-        "label": "Result",
-        "format": "{{msg.payload}}",
-        "layout": "col-center",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 1030,
-        "y": 1120,
+        "x": 1885,
+        "y": 120,
         "wires": []
-    },
-    {
-        "id": "64598e32cd7f6141",
-        "type": "function",
-        "z": "9727d69723ecfd0b",
-        "name": "format",
-        "func": "function insertParagraphs(jsonText) {\n    // Insert <p> after every '{'\n    jsonText = jsonText.replace(/{/g, '{<p>');\n    // Insert <p> after every ','\n    jsonText = jsonText.replace(/,/g, ',<p>');\n    // Insert <p> before every '}'\n    jsonText = jsonText.replace(/}/g, '<p>}');\n    return jsonText;\n}\n\n\nmsg.payload = JSON.stringify(msg.payload,null,2)\nmsg.payload = insertParagraphs(msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 730,
-        "y": 800,
-        "wires": [
-            [
-                "a1d6e1d3e09180a7"
-            ]
-        ]
-    },
-    {
-        "id": "734b7d523b2eecb1",
-        "type": "ui_button",
-        "z": "9727d69723ecfd0b",
-        "name": "",
-        "group": "781b6815d353fd77",
-        "order": 23,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "clear",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": ".",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 890,
-        "y": 1180,
-        "wires": [
-            [
-                "a1d6e1d3e09180a7"
-            ]
-        ]
-    },
-    {
-        "id": "7f3507d0baf784e3",
-        "type": "function",
-        "z": "9727d69723ecfd0b",
-        "name": "save dropdown",
-        "func": "flow.set(\"RBCPage\",msg.payload);",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 500,
-        "y": 1360,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "976f5f5d6f193e50",
-        "type": "function",
-        "z": "9727d69723ecfd0b",
-        "name": "save dropdown",
-        "func": "flow.set(\"Outputnumber\",msg.payload);",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 500,
-        "y": 1240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "b32467a50df501a1",
-        "type": "ui_button",
-        "z": "9727d69723ecfd0b",
-        "name": "",
-        "group": "781b6815d353fd77",
-        "order": 2,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "Get ID",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "Gateway/Id",
-        "topicType": "str",
-        "x": 250,
-        "y": 1160,
-        "wires": [
-            [
-                "78482b048aee3689"
-            ]
-        ]
-    },
-    {
-        "id": "78482b048aee3689",
-        "type": "function",
-        "z": "9727d69723ecfd0b",
-        "name": "send msg",
-        "func": "var newMsg = msg;\n \nnewMsg.method = \"GET\";\nreturn newMsg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 480,
-        "y": 1160,
-        "wires": [
-            [
-                "eb2f147f325cd204"
-            ]
-        ]
-    },
-    {
-        "id": "58b3652548981f0c",
-        "type": "ui_button",
-        "z": "9727d69723ecfd0b",
-        "name": "",
-        "group": "781b6815d353fd77",
-        "order": 3,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "Get CycleData",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "RBC/CycleData",
-        "topicType": "str",
-        "x": 280,
-        "y": 1200,
-        "wires": [
-            [
-                "78482b048aee3689"
-            ]
-        ]
-    },
-    {
-        "id": "ae51c4ee3e51e630",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 1,
-        "width": 5,
-        "height": 1
-    },
-    {
-        "id": "1a082cad0bffe3e7",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 4,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "113a9c985eff6242",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 7,
-        "width": 4,
-        "height": 1
-    },
-    {
-        "id": "570342dc0af771e3",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 11,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "9dadde8b6948a0b2",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 13,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "a7ae6e142b1c0efb",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 14,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "baa8634f19d86d36",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 15,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "086d92050433fe33",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 16,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "068ea17c7e2ee93a",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 17,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "984c88d08f9d2011",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 18,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "186bb159992b0664",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 19,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "d7cb2ff2f5ee939f",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 20,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "24f0fd02ce9af5d9",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 21,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "f259305154e6bf48",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 22,
-        "width": 8,
-        "height": 1
-    },
-    {
-        "id": "6abbbfa3b66fce3e",
-        "type": "ui_spacer",
-        "z": "9727d69723ecfd0b",
-        "name": "spacer",
-        "group": "781b6815d353fd77",
-        "order": 24,
-        "width": 1,
-        "height": 1
-    },
-    {
-        "id": "781b6815d353fd77",
-        "type": "ui_group",
-        "name": "live Chart",
-        "tab": "2ca03eff3ffc7e09",
-        "order": 3,
-        "disp": false,
-        "width": "12",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "2ca03eff3ffc7e09",
-        "type": "ui_tab",
-        "name": "ROBA Gateway",
-        "icon": "dashboard",
-        "order": 1,
-        "disabled": false,
-        "hidden": false
-    },
-    {
-        "id": "99d752699003c846",
-        "type": "global-config",
-        "env": [],
-        "modules": {
-            "node-red-dashboard": "3.6.6"
-        }
     }
 ]

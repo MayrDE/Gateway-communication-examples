@@ -11,7 +11,7 @@
 
 ## Introduction
 
-This application example demonstrates how to set up a lightweight Mosquitto MQTT broker on your local machine and connect a ROBA® Gateway to it. It also shows how to verify the connection and interact with the ROBA® Gateway using MQTT publish and subscribe commands.
+This application example demonstrates how to set up a lightweight Mosquitto MQTT broker on your local machine and connect a gateway to it. It also shows how to verify the connection and interact with the gateway using MQTT publish and subscribe commands.
 
 ## Supported Versions
 
@@ -19,9 +19,9 @@ This documentation was created using the following versions. It may work with ot
 
 | Module                | Version     |
 |:--------------        |:------------|
-| ROBA®-Gateway FW      | `1.0.0`     |
-| ROBA®-Gateway FS      | `1.0.0`     |
-| ROBA® brake-checker   | `4.0.0`     |
+| ROBA® gateway FW      | `1.0.0`     |
+| ROBA® gateway FS      | `1.0.0`     |
+| ROBA® brake-checker®  | `4.0.0`     |
 | Mosquitto             | `2.0.21`    |
 
 ## Setup
@@ -32,7 +32,7 @@ Install Mosquitto on your local machine. You can find installation instructions 
 
 ### Network Setup
 
-Connect your ROBA® Gateway with your local network over a router.
+Connect your gateway with your local network over a router.
 
 ![Connection](../Assets/Connection.png)
 
@@ -65,15 +65,15 @@ You should see output similar to this, indicating that the broker is running and
 
 ![MosquittoRunning](../Assets/03_MosquittoOutput.png)
 
-### Setup the ROBA® Gateway
+### Setup the ROBA® gateway
 
-Configure the ROBA® Gateway MQTT settings in the web interface like described in [MQTT Settings in ROBA® Gateway](../README.md#roba-gateway-mqtt-settings-for-the-examples).
+Configure the gateway MQTT settings in the web interface like described in [MQTT Settings in ROBA® gateway](../README.md#roba-gateway-mqtt-settings-for-the-examples).
 
-If everything is set up correctly, the ROBA® Gateway should now connect to the MQTT broker. You can verify this by checking the Mosquitto terminal output, which should show a new connection from the ROBA® Gateway's IP address.
+If everything is set up correctly, the gateway should now connect to the MQTT broker. You can verify this by checking the Mosquitto terminal output, which should show a new connection from the gateway's IP address.
 
 ![Connection Established](../Assets/05_ConnectionEstablished.png)
 
- ## Broker with Authentication
+## Broker with Authentication
 
 Set up an authentication for your Mosquitto broker by creating a password file. You can do this using the `mosquitto_passwd` utility that comes with Mosquitto installation. More information on [Mosquitto Documentation](https://mosquitto.org/documentation/authentication-methods/).
 Open a terminal and run following commands to restart the broker with password authentication:
@@ -81,7 +81,8 @@ Open a terminal and run following commands to restart the broker with password a
 ```bash
 .\mosquitto_passwd.exe -c myPasswordfile myUser
 ```
-This command creates a new password file named `myPasswordfile` and adds a user `myUser`. You will be prompted twice to enter a password for the `myUser`. Please remember this password, as it will be needed for the ROBA® Gateway MQTT settings.
+
+This command creates a new password file named `myPasswordfile` and adds a user `myUser`. You will be prompted twice to enter a password for the `myUser`. Please remember this password, as it will be needed for the gateway MQTT settings.
 
 Next, modify your Mosquitto configuration file to include the password file and disable anonymous access.
 
@@ -93,17 +94,17 @@ password_file myPasswordfile
 
 Restart the Mosquitto broker to apply the changes.
 
-Now, if not updated the `User` and `Password` in the ROBA® Gateway MQTT settings in the web interface, you will see a disconnection in the Mosquitto terminal output, as it does not authorize the connection attempt.
+Now, if not updated the `User` and `Password` in the gateway MQTT settings in the web interface, you will see a disconnection in the Mosquitto terminal output, as it does not authorize the connection attempt.
 
 ![Disconnected](../Assets/06_ClientNotAuthorized.png)
 
-After updating the User and Password in the ROBA® Gateway MQTT settings to match the credentials set in the Mosquitto password file, the ROBA® Gateway should successfully connect to the broker again. You may need to restart the ROBA® Gateway for this.
+After updating the User and Password in the gateway MQTT settings to match the credentials set in the Mosquitto password file, the gateway should successfully connect to the broker again. You may need to restart the gateway for this.
 
 ![Authorized Connection](../Assets/07_ClientAuthorized.png)
 
 ## Mosquitto subscribe
 
-To verify that the ROBA® Gateway is publishing messages to the MQTT broker, you can use the `mosquitto_sub` command-line tool to subscribe to all topics. Open a new terminal window and run the following command:
+To verify that the gateway is publishing messages to the MQTT broker, you can use the `mosquitto_sub` command-line tool to subscribe to all topics. Open a new terminal window and run the following command:
 
 ```bash
 .\mosquitto_sub.exe -v -t "#" -p 1883 -h 10.10.41.19 -u "myUser" -P "password"
@@ -111,19 +112,21 @@ To verify that the ROBA® Gateway is publishing messages to the MQTT broker, you
 
 This command subscribes to all topics (`#`) on the broker running on port 1883 and prints the received messages to the terminal.
 
-You should start seeing messages being published by the ROBA® Gateway, similar to the following output:
+You should start seeing messages being published by the gateway, similar to the following output:
 
 ![SubscribedMessages](../Assets/09_MosquittoSub_Output.png)
 
 ## Mosquitto publish
 
-You can also publish messages to the ROBA® Gateway using the `mosquitto_pub` command-line tool. The following example shows how to switch Output 0 on the ROBA® Gateway. Please be sure, that you replace the `2521D00163` with the actual serial number of your ROBA® Gateway.
+You can also publish messages to the gateway using the `mosquitto_pub` command-line tool. The following example shows how to switch Output 0 on the gateway. Please be sure, that you replace the `2521D00163` with the actual serial number of your gateway.
 
+<!-- markdownlint-disable MD028 -->
 > ATTENTION!  
 > This request will switch the output. Before proceeding, please make sure that no output is is connected electrically.
 
 > ATTENTION!  
-> some of the following steps require at least service level "Service", please log in with appropriate credentials in the Webinterface. See [Password generation](../README.md#password-generation) for more information.
+> some of the following steps require at least service level "Service", please log in with appropriate credentials in the Webinterface. See [Password generation](../../README.md#password-generation) for more information.
+<!-- markdownlint-enable MD028 -->
 
 ```bash
 #switch Output 0 ON
@@ -138,7 +141,7 @@ You should see the corresponding messages in the `mosquitto_sub` terminal window
 
 ## Limits of the example
 
-This example flow is intended for demonstration purposes only. For complete documentation please refer to the [ROBA®-Gateway Topic Documentation](../TopicDocumentation/).
+This example flow is intended for demonstration purposes only. For complete documentation please refer to the [CommunicationSpec](../../CommunicationSpec/README.md).
 
 ---
 
