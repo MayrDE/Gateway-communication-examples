@@ -1,0 +1,94 @@
+meta {
+  name: putGatewayFactoryReset
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/Gateway/FactoryReset
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{username}}
+  password: {{password}}
+}
+
+docs {
+  # putGatewayFactoryReset
+
+  Perform a factory reset to restore the gateway to its default settings.
+
+  ## Required service level
+
+  `Service`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `202 Request Accepted`
+
+  or
+
+  `401 Not Authorized`
+}
+
+example {
+  name: 202 Response
+  description: The request has been accepted for processing but is not yet complete.
+  
+  request: {
+    url: {{baseUrl}}/Gateway/FactoryReset
+    method: PUT
+    mode: none
+  }
+  
+  response: {
+    status: {
+      code: 202
+      text: Accepted
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: The request is unauthorized. Ensure proper authentication credentials are provided.
+  
+  request: {
+    url: {{baseUrl}}/Gateway/FactoryReset
+    method: PUT
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,82 @@
+meta {
+  name: getRBCInfo
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/RBC/Info
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getRBCInfo
+  
+  Get the RBC information like type, name, serial number etc.
+  
+  ## Required service level
+  
+  `none`
+  
+  ## Body
+  
+  `none`
+  
+  ## Response
+  
+  `200 OK` (RBCInfo)
+  
+  ### Example
+  
+  ```json
+  {
+  	"Connected": true,
+  	"Name": "RBC Plus DC 24V",
+  	"Type": "058.600.2",
+  	"SerialNumber": "2450D00013",
+  	"ItemNumber": "8298350",
+  	"PCBSerialNumber": "PCB123456",
+  	"HwVersion": "0.1.0.0",
+  	"SwVersion": "1.0.5"
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: 200 OK
+  
+  request: {
+    url: {{baseUrl}}/RBC/Info
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "Connected": false,
+          "Name": "",
+          "Type": "",
+          "SerialNumber": "",
+          "ItemNumber": "",
+          "PCBSerialNumber": "",
+          "HwVersion": "",
+          "SwVersion": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,94 @@
+meta {
+  name: getRBCConfig
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/RBC/Config
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getRBCConfig
+
+  Get the current RBC configuration.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (RBCConfig)
+
+  ### Example
+
+  ```json
+  {
+	"ID": 32,
+	"ControlType": 32,
+	"ControlMode": 2,
+	"Overexcitation": 24.0,
+	"Holding": 12.0,
+	"CoilVoltage": 24.0,
+	"OexcTime": 60,
+	"ArmDiscCondRec": true,
+	"SoftStart": false,
+	"DampedBrake": false,
+	"FreeWheelingVoltage": 2,
+	"ScopeMode": false,
+	"ShutdownAutomatic": true,
+	"PrevFuncMon": true
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: 200 OK
+  
+  request: {
+    url: {{baseUrl}}/RBC/Config
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "ID": 0,
+          "ControlType": 0,
+          "ControlMode": 0,
+          "Overexcitation": 0,
+          "Holding": 0,
+          "CoilVoltage": 0,
+          "OexcTime": 0,
+          "ArmDiscCondRec": false,
+          "SoftStart": false,
+          "DampedBrake": false,
+          "FreeWheelingVoltage": 0,
+          "ScopeMode": false,
+          "ShutdownAutomatic": false,
+          "PrevFuncMon": false
+        }
+      '''
+    }
+  }
+}

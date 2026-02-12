@@ -1,0 +1,967 @@
+[
+    {
+        "id": "9727d69723ecfd0b",
+        "type": "tab",
+        "label": "REST",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b3cc2bfa395c8b27",
+        "type": "comment",
+        "z": "9727d69723ecfd0b",
+        "name": "REST-API for Gateway",
+        "info": "",
+        "x": 480,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "39f6c9ab46f92a5d",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET Id",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Id",
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "2873110682ec484e",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET GlobalLogLevel",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/GlobalLogLevel",
+        "x": 490,
+        "y": 160,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "9e71db48545ea125",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET ModuleId",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/ModuleId",
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "e46a2845bae6de5a",
+        "type": "catch",
+        "z": "9727d69723ecfd0b",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 100,
+        "y": 1540,
+        "wires": [
+            [
+                "6f47cb40200d4cd2"
+            ]
+        ]
+    },
+    {
+        "id": "6f47cb40200d4cd2",
+        "type": "debug",
+        "z": "9727d69723ecfd0b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 250,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "324469735ada581d",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "226bfcaca8d373ce"
+            ]
+        ]
+    },
+    {
+        "id": "226bfcaca8d373ce",
+        "type": "function",
+        "z": "9727d69723ecfd0b",
+        "name": "EDIT ME: init",
+        "func": "//Set the correct hostname, userlevel and password here!\nlet hostname = \"gateway-2521d00163/\";\nlet userlevel = \"Service\";\nlet password = \"Hc00163!D2521T\";\n\n\n//Dashboard init values\n//DO NOT CHANGE THE FOLLOWING\nflow.set (\"Run\", false);\nflow.set (\"Outputnumber\", 0);\nglobal.set(\"Hostname\", hostname);\nglobal.set(\"Userlevel\", userlevel);\nglobal.set(\"Password\", password);\n\n\n\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "06fe2d95cd51662f",
+        "type": "comment",
+        "z": "9727d69723ecfd0b",
+        "name": "rest service for RBC Roba Brake Checker",
+        "info": "",
+        "x": 1380,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e961257450612933",
+        "type": "http request",
+        "z": "9727d69723ecfd0b",
+        "name": "http request",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 370,
+        "y": 800,
+        "wires": [
+            [
+                "1145ba5ffe14edd0",
+                "729c8a6fb792634f"
+            ]
+        ]
+    },
+    {
+        "id": "ca3fa37da8ca24b0",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET  RBCCurrentValue",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/RBC/CurrentValues",
+        "x": 1340,
+        "y": 120,
+        "wires": [
+            [
+                "097716d0ef7d081f"
+            ]
+        ]
+    },
+    {
+        "id": "1145ba5ffe14edd0",
+        "type": "json",
+        "z": "9727d69723ecfd0b",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 800,
+        "wires": [
+            [
+                "2d6a3ba30ab509a8"
+            ]
+        ]
+    },
+    {
+        "id": "2d6a3ba30ab509a8",
+        "type": "debug",
+        "z": "9727d69723ecfd0b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "729c8a6fb792634f",
+        "type": "debug",
+        "z": "9727d69723ecfd0b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "b1e5f0342f416b6e",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET Config",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/RBC/Config",
+        "x": 1310,
+        "y": 160,
+        "wires": [
+            [
+                "097716d0ef7d081f"
+            ]
+        ]
+    },
+    {
+        "id": "597071aff78dcf75",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET CycleData",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/RBC/CycleData",
+        "x": 1320,
+        "y": 200,
+        "wires": [
+            [
+                "097716d0ef7d081f"
+            ]
+        ]
+    },
+    {
+        "id": "675eed9aa05362d5",
+        "type": "function",
+        "z": "9727d69723ecfd0b",
+        "name": "Modify URL",
+        "func": "var newMsg = msg;\n\n//get the global variables\nvar hostname = global.get(\"Hostname\");\nvar userlevel = global.get(\"Userlevel\")\nvar password = global.get(\"Password\");\n\n//for debugging\nnewMsg.UserLevel = userlevel;\nnewMsg.Password = password;\n\n//build the url\n//http://username:password@hostname/\nnewMsg.url = \"http://\" + userlevel + \":\" + password + \"@\" + hostname + msg.topic;\n\nreturn [newMsg]",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 800,
+        "wires": [
+            [
+                "e961257450612933",
+                "bb6a0a5add36bfaf"
+            ]
+        ]
+    },
+    {
+        "id": "049df9678ec9193c",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET Input 0",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Input/0",
+        "x": 470,
+        "y": 200,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "be9f4ededa40b1cd",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET Info",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/RBC/Info",
+        "x": 1300,
+        "y": 240,
+        "wires": [
+            [
+                "097716d0ef7d081f"
+            ]
+        ]
+    },
+    {
+        "id": "599e9084409c85d6",
+        "type": "link in",
+        "z": "9727d69723ecfd0b",
+        "name": "request in",
+        "links": [
+            "097716d0ef7d081f",
+            "a7a4c91a978d91d8",
+            "955f9961d9235248",
+            "39bc9a0dd04ee0fa"
+        ],
+        "x": 55,
+        "y": 800,
+        "wires": [
+            [
+                "675eed9aa05362d5"
+            ]
+        ]
+    },
+    {
+        "id": "a9cfa9a39e34ca4a",
+        "type": "comment",
+        "z": "9727d69723ecfd0b",
+        "name": "ERROR catcher",
+        "info": "",
+        "x": 120,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "87143520124f5ca5",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET TransmitRate",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "PUT",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/RBC/TransmitRate",
+        "x": 1330,
+        "y": 280,
+        "wires": [
+            [
+                "097716d0ef7d081f"
+            ]
+        ]
+    },
+    {
+        "id": "a7a4c91a978d91d8",
+        "type": "link out",
+        "z": "9727d69723ecfd0b",
+        "name": "request OUT 1",
+        "mode": "link",
+        "links": [
+            "599e9084409c85d6"
+        ],
+        "x": 785,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "097716d0ef7d081f",
+        "type": "link out",
+        "z": "9727d69723ecfd0b",
+        "name": "request OUT 2",
+        "mode": "link",
+        "links": [
+            "599e9084409c85d6"
+        ],
+        "x": 1555,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a48d7c2b4bceec7d",
+        "type": "comment",
+        "z": "9727d69723ecfd0b",
+        "name": "http request flow",
+        "info": "",
+        "x": 120,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "b65e95628f71083c",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET Network",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Network",
+        "x": 470,
+        "y": 280,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "0ee3ad5fc0b32d70",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "PUT Restart",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "PUT",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Restart",
+        "x": 930,
+        "y": 280,
+        "wires": [
+            [
+                "955f9961d9235248"
+            ]
+        ]
+    },
+    {
+        "id": "bb6a0a5add36bfaf",
+        "type": "debug",
+        "z": "9727d69723ecfd0b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 350,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "96bc83bc2d797cc1",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "PUT Output 0 OFF",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "method",
+                "v": "PUT",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Output/0",
+        "payload": "{\"Value\":false}",
+        "payloadType": "json",
+        "x": 950,
+        "y": 240,
+        "wires": [
+            [
+                "955f9961d9235248"
+            ]
+        ]
+    },
+    {
+        "id": "5d19b8e6cc8fa78a",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET Output 0",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Output/0",
+        "x": 470,
+        "y": 320,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "9b229c0791de1db0",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET PCBSerialNumber",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/PCBSerialNumber",
+        "x": 500,
+        "y": 360,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "4f380bb72895ad0b",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET Ping",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Ping",
+        "x": 460,
+        "y": 400,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "49b8b97dc7d04aeb",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET SDCardInfo",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/SDInfo",
+        "x": 479.765625,
+        "y": 445.76171875,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "f796983691e3f619",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "GET Uptime",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "GET",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Uptime",
+        "x": 469.765625,
+        "y": 485.76171875,
+        "wires": [
+            [
+                "a7a4c91a978d91d8"
+            ]
+        ]
+    },
+    {
+        "id": "955f9961d9235248",
+        "type": "link out",
+        "z": "9727d69723ecfd0b",
+        "name": "request OUT 1",
+        "mode": "link",
+        "links": [
+            "599e9084409c85d6"
+        ],
+        "x": 1105,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "bf759d5fb6a2c4b4",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "PUT Output 0 ON",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "method",
+                "v": "PUT",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Output/0",
+        "payload": "{\"Value\":true}",
+        "payloadType": "json",
+        "x": 940,
+        "y": 200,
+        "wires": [
+            [
+                "955f9961d9235248"
+            ]
+        ]
+    },
+    {
+        "id": "128372f048b421e0",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "PUT Network",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "method",
+                "v": "PUT",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/Network",
+        "payload": "{\"hostname\":\"gateway-2521D00163\",\"NetworkType\":2,\"dynamicIp\":\"10.10.42.142\",\"dynamicSubnetMask\":\"255.255.0.0\",\"dynamicGateway\":\"10.10.2.82\",\"dynamicDNS1\":\"10.4.4.1\",\"dynamicDNS2\":\"10.4.4.2\",\"StaticIP\":{\"StaticIPAddress\":\"192.168.4.2\",\"StaticSubnet\":\"255.255.0.0\",\"StaticGateway\":\"192.168.4.1\",\"StaticDNS1\":\"192.168.4.1\",\"StaticDNS2\":\"192.168.4.1\"},\"NtpSettings\":{\"Enabled\":false,\"Server\":\"192.168.4.1\"}}",
+        "payloadType": "json",
+        "x": 930,
+        "y": 160,
+        "wires": [
+            [
+                "955f9961d9235248"
+            ]
+        ]
+    },
+    {
+        "id": "9e4eef02c0b27791",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "PUT GlobalLogLevel 4",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "method",
+                "v": "PUT",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/GlobalLogLevel",
+        "payload": "{\"Value\":4}",
+        "payloadType": "json",
+        "x": 960,
+        "y": 120,
+        "wires": [
+            [
+                "955f9961d9235248"
+            ]
+        ]
+    },
+    {
+        "id": "766f60c25abc0d4f",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "PUT FactoryReset",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "PUT",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Gateway/FactoryReset",
+        "x": 950,
+        "y": 320,
+        "wires": [
+            [
+                "955f9961d9235248"
+            ]
+        ]
+    },
+    {
+        "id": "92278cc073684609",
+        "type": "inject",
+        "z": "9727d69723ecfd0b",
+        "name": "PUT Reset",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "method",
+                "v": "PUT",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "/RBC/Reset",
+        "x": 1720,
+        "y": 120,
+        "wires": [
+            [
+                "39bc9a0dd04ee0fa"
+            ]
+        ]
+    },
+    {
+        "id": "39bc9a0dd04ee0fa",
+        "type": "link out",
+        "z": "9727d69723ecfd0b",
+        "name": "request OUT 2",
+        "mode": "link",
+        "links": [
+            "599e9084409c85d6"
+        ],
+        "x": 1885,
+        "y": 120,
+        "wires": []
+    }
+]

@@ -1,0 +1,78 @@
+meta {
+  name: getGatewaySDInfo
+  type: http
+  seq: 22
+}
+
+get {
+  url: {{baseUrl}}/Gateway/SDInfo
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getGatewaySDInfo
+
+  Get Gateway SD card information.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (SdInfo)
+
+  ### Example
+
+  ```json
+  {
+	"SDCard": {
+		"CardType": 3,
+		"TotalBytes": 16008609792,
+		"UsedBytes": 2048000,
+		"FreeBytes": 16006561792
+	}
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: Get gateway SD card information
+  
+  request: {
+    url: {{baseUrl}}/Gateway/SDInfo
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "SDCard": {
+            "CardType": 0,
+            "TotalBytes": 0,
+            "UsedBytes": 0,
+            "FreeBytes": 0
+          }
+        }
+      '''
+    }
+  }
+}

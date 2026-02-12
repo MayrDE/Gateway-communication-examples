@@ -1,0 +1,70 @@
+meta {
+  name: getGatewayGlobalLogLevel
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/Gateway/GlobalLogLevel
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getGatewayGlobalLogLevel
+
+  Retrieve the current global log level of the gateway.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (LogLevel)
+
+  - `Value`: integer 0..5 (0=Verbose, 1=Debug, 2=Information, 3=Warning, 4=Error, 5=Fatal)
+
+  ### Example
+
+  ```json
+  {
+	"Value": 2
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: The current log level of the gateway.
+  
+  request: {
+    url: {{baseUrl}}/Gateway/GlobalLogLevel
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "Value": 0
+        }
+      '''
+    }
+  }
+}

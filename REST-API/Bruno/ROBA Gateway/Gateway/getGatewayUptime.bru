@@ -1,0 +1,70 @@
+meta {
+  name: getGatewayUptime
+  type: http
+  seq: 25
+}
+
+get {
+  url: {{baseUrl}}/Gateway/Uptime
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getGatewayUptime
+
+  Get the runtime counter of the gateway (uptime) in seconds.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK`
+
+  - `Value`: integer (uint32)
+
+  ### Example
+
+  ```json
+  {
+	"Value": 123456
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/Gateway/Uptime
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "Value": 0
+        }
+      '''
+    }
+  }
+}
