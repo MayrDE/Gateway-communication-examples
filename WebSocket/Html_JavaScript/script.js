@@ -62,7 +62,7 @@
   function connectLogger() {
     if (loggerSocket && loggerSocket.readyState === WebSocket.OPEN) return;
     const host = (els.host.value || '').trim();
-    const type = (els.loggerType.value || 'rawDataLogger').trim();
+    const type = (els.loggerType.value).trim();
     if (!host) { alert('Please enter Gateway Hostname/IP'); return; }
     const url = `ws://${host}:81/${encodeURIComponent(type)}`;
 
@@ -78,13 +78,8 @@
       let msg;
       const typeLower = (els.loggerType.value || '').toLowerCase();
       if (ev.data instanceof ArrayBuffer) {
-        if (typeLower === 'rawdatalogger') {
-          // Show binary content as hex string for readability
-          msg = arrayBufferToHex(ev.data);
-        } else {
           try { msg = new TextDecoder().decode(ev.data); }
           catch { msg = '[binary data]'; }
-        }
       } else {
         msg = ev.data;
       }

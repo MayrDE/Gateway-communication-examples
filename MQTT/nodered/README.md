@@ -1,4 +1,4 @@
-# ROBA®-Gateway MQTT Node-RED example
+# ROBA® gateway MQTT Node-RED example
 
 ## Table of contents
 
@@ -13,13 +13,12 @@
 Node-RED is a powerful visual programming tool specifically designed for integrating hardware devices,  
 APIs and online services. It allows you to create flows by connecting nodes, each of which performs a specific function.
 
-
-In this flow, some available MQTT topics of the ROBA®-Gateway are executed as examples.
+In this flow, some available MQTT topics of the gateway are executed as examples.
 Node-Red can be downloaded here [https://nodered.org/](https://nodered.org/).  
 Please refer to the official Node-RED documentation for installation and setup instructions.
 
 To get the example running, the module library [node-red-contrib-aedes-mqtt-broker](https://flows.nodered.org/node/node-red-contrib-aedes) is required!
-Please follow the instructions on the Node-RED website to install the dashboard module.
+Please follow the instructions on the Node-RED website.
 
 ## Supported Versions
 
@@ -30,21 +29,21 @@ This documentation was created using the following versions. It may work with ot
 | Node-RED                           | `4.1.3`  |
 | node.js                            | `24.12.0`|
 | node-red-contrib-aedes-mqtt-broker | `0.15.0` |
-| ROBA®-Gateway FW                   | `1.0.0`  |
-| ROBA®-Gateway FS                   | `1.0.0`  |
-| ROBA® brake-checker                | `4.0.0`  |
+| ROBA® gateway FW                   | `1.0.0`  |
+| ROBA® gateway FS                   | `1.0.0`  |
+| ROBA® brake-checker®               | `4.0.0`  |
 
 ## Setup
 
-Connect your ROBA® Gateway with your local network over a router.
+Connect your gateway with your local network over a router.
 
 ![Connection](../Assets/NodeRedConnection.png)
 
-### Setup the ROBA® Gateway (MQTT Client)
+### Setup the ROBA® gateway (MQTT Client)
 
-Configure the ROBA® Gateway MQTT settings in the web interface like described in [MQTT Settings in ROBA® Gateway](../README.md#roba-gateway-mqtt-settings-for-the-examples).
+Configure the gateway MQTT settings in the web interface like described in [MQTT Settings in ROBA® gateway](../README.md#roba-gateway-mqtt-settings-for-the-examples).
 
-If everything is set up correctly, the ROBA® Gateway should now connect to the MQTT broker. You can verify this by checking the Mosquitto terminal output, which should show a new connection from the ROBA® Gateway's IP address.
+If everything is set up correctly, the gateway should now connect to the MQTT broker. You can verify this by checking the Mosquitto terminal output, which should show a new connection from the gateway's IP address.
 
 ## Starting node-red locally
 
@@ -80,11 +79,11 @@ The variables are automatically assigned, when deploying the flow.
 ![SelectEditNode](../Assets/12_SelectSetVariables.png)
 
 Modify the broker variable to match the IP address of your MQTT broker (your PC) e.g. `10.10.40.216`.  
-Modify the gatewaySerialnumber variable to match your ROBA®-Gateway serial number e.g. `2521D00163`.  
-Modify the rbcSerialnumber variable as well to match your ROBA® brake-checker® serial number e.g. `1234D12345`.  
+Modify the gatewaySerialnumber variable to match your gateway serial number e.g. `2521D00163`.  
+Modify the rbcSerialnumber variable as well to match your brake-checker serial number e.g. `1234D12345`.  
 The serial numbers both are case-sensitive.
 
-If you are using a [topic prefix](../README.md#topic-prefix) set in the ROBA®-Gateway MQTT settings, modify also the topicBase variable accordingly.
+If you are using a [topic prefix](../README.md#topic-prefix) set in the gateway MQTT settings, modify also the topicBase variable accordingly.
 After you have finished, click `Done` to close the edit window and save the settings.
 
 ![Set Variables](../Assets/13_SetVariables.png)
@@ -93,8 +92,7 @@ Now click `Deploy` to deploy the changes.
 
 ![DeployChanges](../Assets/14_Deploy.png)
 
-
- If everything is set up correctly, the ROBA® Gateway should now connect to the MQTT broker. You can verify this by checking the number of clients connected to Aedes Broker, which should show "connected 2" (ROBA® Gateway and Node-RED). If the connection is not established, please restart the ROBA® Gateway and/or check your Firewall settings.
+ If everything is set up correctly, the gateway should now connect to the MQTT broker. You can verify this by checking the number of clients connected to Aedes Broker, which should show "connected 2" (gateway and Node-RED). If the connection is not established, please restart the gateway and/or check your Firewall settings.
 
 ![Successful Connection](../Assets/15_SuccesfulConnection.png)
 
@@ -103,12 +101,12 @@ Now click `Deploy` to deploy the changes.
 Once everything is set up, you can test the flow.
 
 >ATTENTION:  
-> The following example will set Output 0 of the ROBA®-Gateway to ON state.  
+> The following example will set Output 0 of the gateway to ON state.  
 > Please ensure that nothing is connected electrically to Output 0 that could be damaged by this action.
 
 1. Open the debugger view by clicking on the bug icon in the top right corner of the Node-RED editor.
-2. Click the inject button "Set Output 0 ON" to publish the command to the ROBA®-Gateway via MQTT.
-3. Now you should see the response from the ROBA®-Gateway in the debug panel as well as measuring high state on Output 0.
+2. Click the inject button "Set Output 0 ON" to publish the command to the gateway via MQTT.
+3. Now you should see the response from the gateway in the debug panel as well as measuring high state on Output 0.
 
 You can enable more or less debug nodes in the flow to see more information about the MQTT messages being sent and received.
 
@@ -116,10 +114,10 @@ You can enable more or less debug nodes in the flow to see more information abou
 
 ## Limits of the example
 
-This example flow is intended for demonstration purposes only. For complete documentation please refer to the [ROBA®-Gateway Topic Documentation](../TopicDocumentation/).
+This example flow is intended for demonstration purposes only. For complete documentation please refer to the [CommunicationSpec](../../CommunicationSpec/README.md).
 
 Feel free to modify and expand the flow according to your specific requirements and use cases.
 
 ---
 
-[Back to ROBA® Gateway main page](../../README.md) | [Back to MQTT overview](../README.md)
+[Back to ROBA® gateway main page](../../README.md) | [Back to MQTT overview](../README.md)

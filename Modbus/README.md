@@ -1,4 +1,4 @@
-# ROBA®-Gateway MODBUS TCP register description
+# ROBA® gateway MODBUS TCP register description
 
 ## Table of contents
 
@@ -6,7 +6,7 @@
 
 ## Coming soon
 
-The MODBUS TCP functionality of the ROBA®-Gateway is under development. The complete documentation will be available soon.
+The MODBUS TCP functionality of the gateway is under development. The complete documentation will be available soon.
 
 ---
 

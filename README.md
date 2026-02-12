@@ -1,14 +1,17 @@
-# ROBA®-Gateway communication examples
+# ROBA® gateway communication examples
+
 ![Produkt](roba-gateway.png)
+
 ## Table of contents
 
 1. [Introduction](#introduction)
+1. [Scope](#scope)
 1. [Password generation](#password-generation)
-1. [Change log](#change-log)
+1. [Issues and Feedback](#issues-and-feedback)
 
 ## Introduction
 
-This is the documentation for the ROBA®-Gateway communication protocols via the ethernet interface. So far, we support the following protocols.
+This is the documentation for the gateway communication protocols via the ethernet interface. So far, we support the following protocols.
 
 <!-- - [Modbus TCP](Modbus/README.md) -->
 - [REST-API](REST-API/README.md)
@@ -16,10 +19,17 @@ This is the documentation for the ROBA®-Gateway communication protocols via the
 - [MQTT](MQTT/README.md)
 
 Each of these protocols has its own directory structure next to this document and every directory has its own README.md for further details.
+Additionally there is a detailed [CommunicationSpec](CommunicationSpec/README.md) which contains detailed communication specifications for all supported messages and commands.  
+It may be that not all protocols are supported for every command or message. In this case, it is explicitly mentioned in the respective documentation.
+
+## Scope
+
+This documentation may be not valid for all versions of the gateway. For a detailed scope please see the [Change Log](/CHANGELOG.md).
+The information in this document may be updated or revised at any time.
 
 ## Password generation
 
-To be able to use all functionalities of the ROBA®-Gateway REST-API requests, two different passwords are needed, depending on the service level.
+To be able to use all functionalities of the gateway REST-API requests, two different passwords are needed, depending on the service level.
 
 ### Description
 
@@ -53,7 +63,7 @@ Fill values are added to the password at the positions where -1 is set in the cu
 char fillValues[] = { 'k', 'x', '!' };
 ```
 
-### Current implementation in ROBA®-Gateway
+### Current implementation in ROBA® gateway
 
 #### Customer password
 
@@ -156,6 +166,28 @@ CreatePassword(customerPassword, getSerialNumber(), customerFillValues, sizeof(c
 CreatePassword(servicePassword, getSerialNumber(), serviceFillValues, sizeof(serviceFillValues), serviceOrder, sizeof(serviceOrder));
 ```
 
-## Change log
+## Issues and Feedback
 
-v1.0.0 First release
+This repository publishes documentation and example content. It does not contain production code, so traditional “bug reports” for runtime failures do not apply. However please feel free to use the Issues tab to help improve the documentation.
+
+### What to file
+
+- Typos, grammar fixes, or unclear phrasing.
+- Broken, redirected, or outdated links.
+- Outdated or inaccurate information.
+- Requests for additional sections, examples, or diagrams.
+- Accessibility concerns (alt text, heading structure, or contrast).
+
+### How to report
+
+- Search existing issues to avoid duplicates.
+- Open a new issue using the repository’s template and include:
+  - A concise summary of the problem or request.
+  - Location of the content (file path and relevant lines).
+  - Context on how you identified it (for example: markdownlint rule, link checker output, or screenshot).
+  - Expected result versus actual behavior or rendering.
+  - A proposed fix; if possible, open a pull request referencing the issue.
+
+### Security and sensitive content
+
+- If you discover sensitive information in the documentation, do not open a public issue. Please contact the maintainers privately or use GitHub’s security advisory process.
