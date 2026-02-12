@@ -1,0 +1,74 @@
+meta {
+  name: getGatewayPCBSerialNumber
+  type: http
+  seq: 19
+}
+
+docs {
+  # getGatewayPCBSerialNumber
+
+  Get Gateway PCB serial number.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (PCBSerialNumber)
+
+  ### Example
+
+  ```json
+  {
+	"Value": "PCB123456"
+  }
+  ```
+}
+
+get {
+  url: {{baseUrl}}/Gateway/PCBSerialNumber
+  body: none
+  auth: inherit
+}
+
+docs {
+  Get Gateway PCB serial number.
+
+  Required service level: none
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/Gateway/PCBSerialNumber
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "Value": ""
+        }
+      '''
+    }
+  }
+}

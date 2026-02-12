@@ -1,0 +1,232 @@
+meta {
+  name: putGatewayNetwork
+  type: http
+  seq: 13
+}
+
+put {
+  url: {{baseUrl}}/Gateway/Network
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: {{username}}
+  password: {{password}}
+}
+
+docs {
+  # putGatewayNetwork
+
+  Set Gateway network settings.
+
+  ## Required service level
+
+  `Service`
+
+  ## Body
+
+  `NetworkSettings`
+
+  ### Example
+
+  ```json
+  {
+	"hostname": "gateway-001",
+	"NetworkType": 1,
+	"StaticIP": {
+		"StaticIPAddress": "192.168.1.10",
+		"StaticSubnet": "255.255.255.0",
+		"StaticGateway": "192.168.1.1",
+		"StaticDNS1": "8.8.8.8",
+		"StaticDNS2": "1.1.1.1"
+	},
+	"NtpSettings": {
+		"Enabled": true,
+		"Server": "pool.ntp.org"
+	}
+  }
+  ```
+
+  ## Response
+
+  `204 No Content`
+
+  or
+
+  `400 Bad Request`
+
+  or
+
+  `401 Not Authorized`
+}
+
+body:json {
+  {
+    "hostname": "gateway-2521D00163",
+    "NetworkType": 1,
+    "dynamicIp": "192.168.4.2",
+    "dynamicSubnetMask": "255.255.0.0",
+    "dynamicGateway": "192.168.4.1",
+    "dynamicDNS1": "0.0.0.0",
+    "dynamicDNS2": "0.0.0.0",
+    "StaticIP": {
+      "StaticIPAddress": "192.168.4.2",
+      "StaticSubnet": "255.255.0.0",
+      "StaticGateway": "192.168.4.1",
+      "StaticDNS1": "192.168.4.1",
+      "StaticDNS2": "192.168.4.1"
+    },
+    "NtpSettings": {
+      "Enabled": false,
+      "Server": "192.168.4.1"
+    }
+  }
+}
+
+example {
+  name: 204 Response
+  description: The operation was successful, and no content is returned.
+  
+  request: {
+    url: {{baseUrl}}/Gateway/Network
+    method: PUT
+    mode: json
+    body:json: {
+      {
+        "hostname": "",
+        "NetworkType": 0,
+        "dynamicIp": "",
+        "dynamicSubnetMask": "",
+        "dynamicGateway": "",
+        "dynamicDNS1": "",
+        "dynamicDNS2": "",
+        "StaticIP": {
+          "StaticIPAddress": "",
+          "StaticSubnet": "",
+          "StaticGateway": "",
+          "StaticDNS1": "",
+          "StaticDNS2": ""
+        },
+        "NtpSettings": {
+          "Enabled": false,
+          "Server": ""
+        }
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: The request body is malformed or invalid. Verify the request payload.
+  
+  request: {
+    url: {{baseUrl}}/Gateway/Network
+    method: PUT
+    mode: json
+    body:json: {
+      {
+        "hostname": "",
+        "NetworkType": 0,
+        "dynamicIp": "",
+        "dynamicSubnetMask": "",
+        "dynamicGateway": "",
+        "dynamicDNS1": "",
+        "dynamicDNS2": "",
+        "StaticIP": {
+          "StaticIPAddress": "",
+          "StaticSubnet": "",
+          "StaticGateway": "",
+          "StaticDNS1": "",
+          "StaticDNS2": ""
+        },
+        "NtpSettings": {
+          "Enabled": false,
+          "Server": ""
+        }
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: The request is unauthorized. Ensure proper authentication credentials are provided.
+  
+  request: {
+    url: {{baseUrl}}/Gateway/Network
+    method: PUT
+    mode: json
+    body:json: {
+      {
+        "hostname": "",
+        "NetworkType": 0,
+        "dynamicIp": "",
+        "dynamicSubnetMask": "",
+        "dynamicGateway": "",
+        "dynamicDNS1": "",
+        "dynamicDNS2": "",
+        "StaticIP": {
+          "StaticIPAddress": "",
+          "StaticSubnet": "",
+          "StaticGateway": "",
+          "StaticDNS1": "",
+          "StaticDNS2": ""
+        },
+        "NtpSettings": {
+          "Enabled": false,
+          "Server": ""
+        }
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": ""
+        }
+      '''
+    }
+  }
+}

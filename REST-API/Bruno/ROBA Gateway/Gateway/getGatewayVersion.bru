@@ -1,0 +1,70 @@
+meta {
+  name: getGatewayVersion
+  type: http
+  seq: 26
+}
+
+get {
+  url: {{baseUrl}}/Gateway/Version
+  body: none
+  auth: inherit
+}
+
+docs {
+  # getGatewayVersion
+
+  Get Gateway HW/SW versions.
+
+  ## Required service level
+
+  `none`
+
+  ## Body
+
+  `none`
+
+  ## Response
+
+  `200 OK` (Version)
+
+  ### Example
+
+  ```json
+  {
+	"HwVersion": "0.1.0.0",
+	"SwVersion": "1.0.5"
+  }
+  ```
+}
+
+example {
+  name: 200 Response
+  description: 200 OK
+  
+  request: {
+    url: {{baseUrl}}/Gateway/Version
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "HwVersion": "",
+          "SwVersion": ""
+        }
+      '''
+    }
+  }
+}

@@ -1,0 +1,94 @@
+meta {
+  name: putRBCReset
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/RBC/Reset
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{username}}
+  password: {{password}}
+}
+
+docs {
+  # putRBCReset
+  
+  Reset the ROBA brake-checker (RBC).
+  
+  ## Required service level
+  
+  `Customer`
+  
+  ## Body
+  
+  `none`
+  
+  ## Response
+  
+  `204 No Content`
+  
+  or
+  
+  `401 Not Authorized`
+}
+
+example {
+  name: 204 Response
+  description: The operation was successful, and no content is returned.
+  
+  request: {
+    url: {{baseUrl}}/RBC/Reset
+    method: PUT
+    mode: none
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: The request is unauthorized. Ensure proper authentication credentials are provided.
+  
+  request: {
+    url: {{baseUrl}}/RBC/Reset
+    method: PUT
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": ""
+        }
+      '''
+    }
+  }
+}
