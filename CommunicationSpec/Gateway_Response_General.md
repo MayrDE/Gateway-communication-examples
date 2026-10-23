@@ -48,23 +48,38 @@ In case of an error, the body usually contains plain text with a short descripti
 
 Parameters:
 
-`<errorCode>`  
-type: integer (uint8)
+`<requestTopic>`  
+Current topic of the request, which is answered by this response.
 
-- 0: No error
-- 1: Bad request
-- 2: Fail
+`<errorCode>`  
+type: string
+
+- "None"
+- "Bad request"
+- "Fail"
+- "Unknown"
+
+
 
 Topic:
 
+For all Gateway related topics:
 ```bash
-{GatewayBaseTopic}/error
+{GatewayBaseTopic}/Response
+```
+
+For all brakechecker related topics:
+```bash
+{RbcBaseTopic}/Response
 ```
 
 Payload:  
 
 ```json
-{"Code": <errorCode>}
+{
+    "Request": "<requestTopic>",
+    "Error": "<errorCode>"
+}
 ```
 
 ## WebSocket

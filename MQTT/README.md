@@ -57,14 +57,15 @@ Please refer to [Home Assistant documentation](https://www.home-assistant.io/int
 
 Username and password, if there is the need for authenticating with the MQTT broker.
 
-> ATTENTION!:
-Even if the broker does not use any authentication, you have to enter a username and password, otherwise the gateway won't connect. You can use any values (e.g. Username: "user", Password "password" in this case.
+If the broker is configured to allow anonymous connections, these fields can be left empty.
 
 ## Topic Documentation
 
  The regular topic structure used by the gateway in combination with a brake-checker is build from several parts:
 
  `[<topic_prefix>/]<device_identifier>/<serial_number>/<topic_specification>`
+
+ Most of the topics will be answered by a predefined response topic For example, if you send a command to `Gateway/2521D00163/Outputs/0/Set`, the result will be published to `Gateway/2521D00163/Response`. The state of the request will be shown in the payload of the response topic. For detailed information about the available MQTT topics and their payloads, please refer to the [CommunicationSpec](../CommunicationSpec/README.md).
 
 ### topic_prefix
 

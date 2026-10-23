@@ -46,11 +46,11 @@ Type: float
 
 - e.g. `15.39`
 
-`<flux_reserve>`  
-This value indicates the magnetic flux reserve in percent. The higher this value, the less reserve is available.
+`<magnetic_reserve>`  
+This value indicates the magnetic  reserve in percent. The higher this value, the more reserve is available
 Type: float
 
-- e.g. `0.67`
+- e.g. `0.21`
 
 `<cycle_power>`  
 Averaged power of the entire brake cycle in watts
@@ -126,7 +126,7 @@ type: JSON Object
     "HoldCurrent": 0.9,
     "PeakCutOff": 2.5,
     "Resistance": 21.0,
-    "FluxReserve": 35.0,
+    "MagneticReserve": 22.0,
     "CyclePower": 15.3,
     "OexcTime": 58.0,
     "T11": 60.0,
@@ -159,7 +159,7 @@ type: JSON Object
     "HoldCurrent": 1.528743,
     "PeakCutOff": 0,
     "Resistance": 15.31,
-    "FluxReserve": 0.68,
+    "MagneticReserve": 22.0,
     "CyclePower": 20.90706,
     "OexcTime": 0.269,
     "T11": 0.108,
@@ -187,7 +187,7 @@ Message:
         "HoldCurrent": 1.52463,
         "PeakCutOff": 0,
         "Resistance": 15.36,
-        "FluxReserve": 0.68,
+        "MagneticReserve": 22.0,
         "CyclePower": 29.93804,
         "OexcTime": 0.27,
         "T11": 0.111,

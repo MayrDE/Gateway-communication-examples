@@ -943,10 +943,10 @@ components:
           type: number
           format: float
           description: This value indicates the last measured resistance of the brake coil
-        FluxReserve:
+        MagneticReserve:
           type: number
           format: float
-          description: This is the calculated flux reserve of the last cycle
+          description: This is the calculated magnetic reserve of the last cycle
         CyclePower:
           type: number
           format: float

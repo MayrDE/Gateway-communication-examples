@@ -50,7 +50,7 @@ type: uint8 (enum)
 - `8` reserved
 - `9` Error: Low input voltage
 - `10` reserved
-- `11` Warning: Function reserve critical
+- `11` Warning: Magnetic reserve critical
 - `12` reserved
 - `13` Warning: Automatic overexcitation still not detected after 2 seconds
 - `14` Warning/Error: Overtemperature detected
@@ -100,7 +100,7 @@ type: Boolean
 - false
 
 `<warn>`  
-Enabled, for example, when the wear reserve exceeds the specified limit (if available).
+Enabled, for example, when the magnetic reserve exceeds the specified limit (if available).
 type: Boolean
 
 - true

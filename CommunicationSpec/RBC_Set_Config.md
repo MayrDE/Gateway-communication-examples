@@ -256,7 +256,7 @@ not applicable
 ---
 
 **MQTT**  
-[MQTT Confirm](Gateway_Response_ConfigConfirm.md)
+[MQTT General Response](Gateway_Response_General.md#MQTT)
 
 ---
 

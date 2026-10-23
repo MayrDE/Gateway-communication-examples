@@ -72,7 +72,7 @@ Example:
         "HoldCurrent": 0.782896,
         "PeakCutOff": 0,
         "Resistance": 15.32,
-        "FluxReserve": 0.67,
+        "MagneticReserve": 22.0,
         "CyclePower": 9.420719,
         "OexcTime": 0.27,
         "T11": 0.105,
